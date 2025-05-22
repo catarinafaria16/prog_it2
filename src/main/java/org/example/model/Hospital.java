@@ -1,22 +1,21 @@
 package org.example.model;
 
+import org.example.utils.Data;
+import org.example.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hospital {
     private String nome;
     private final List<Paciente> lstPacientes;
-    private final List<FrequenciaCardiaca> lstFreqCard;
-    private final List<Temperatura> lstTemperaturas;
-    private final List<Saturacao> lstSaturacoes;
     private final List<ProfissionalSaude> lstProfissionais;
+    private final List<Medida> lstMedicao;
 
     public Hospital(String nome) {
         this.nome = nome;
+        this.lstMedicao = new ArrayList<>();
         this.lstPacientes = new ArrayList<>();
-        this.lstFreqCard = new ArrayList<>();
-        this.lstTemperaturas = new ArrayList<>();
-        this.lstSaturacoes = new ArrayList<>();
         this.lstProfissionais = new ArrayList<>();
     }
 
@@ -26,6 +25,9 @@ public class Hospital {
             return true;
         }
         return false;
+    }
+    public void adicionarMedida(Medida medida) {
+        lstMedicao.add(medida);
     }
 
     public void visualizarPacientes() {
@@ -50,5 +52,76 @@ public class Hospital {
             }
         }
         return false;
+    }
+    private void adicionarFrequenciaCardiaca() {
+        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
+        double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
+        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
+        int idTecnico = Utils.readIntFromConsole("Introduza o ID do técnico: ");
+        // Obter paciente e técnico com base nos IDs
+        // hospital.adicionarFreqCardiaca(dataRegisto, frequencia, paciente, tecnico);
+    }
+
+    private void adicionarTemperatura() {
+        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
+        double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
+        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
+        int idTecnico = Utils.readIntFromConsole("Introduza o ID do técnico: ");
+        // Obter paciente e técnico com base nos IDs
+        // hospital.adicionarTemperatura(dataRegisto, temperatura, paciente, tecnico);
+    }
+
+    private void adicionarSaturacao() {
+        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
+        double saturacao = Utils.readDoubleFromConsole("Introduza a saturação: ");
+        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
+        int idTecnico = Utils.readIntFromConsole("Introduza o ID do técnico: ");
+        // Obter paciente e técnico com base nos IDs
+        // hospital.adicionarSaturacao(dataRegisto, saturacao, paciente, tecnico);
+    }
+    public double calcularMediaFrequenciaCardiaca() {
+        double soma = 0;
+        for (FrequenciaCardiaca freq : lstFreqCard) {
+            soma += freq.getFrequencia();
+        }
+        return soma / lstFreqCard.size();
+    }
+
+    public double calcularDesvioPadraoFrequenciaCardiaca() {
+        double media = calcularMediaFrequenciaCardiaca();
+        double soma = 0;
+        for (FrequenciaCardiaca freq : lstFreqCard) {
+            soma += Math.pow(freq.getFrequencia() - media, 2);
+        }
+        return Math.sqrt(soma / lstFreqCard.size());
+    }
+
+    public double calcularMinimoFrequenciaCardiaca() {
+        double min = Double.MAX_VALUE;
+        for (FrequenciaCardiaca freq : lstFreqCard) {
+            if (freq.getFrequencia() < min) {
+                min = freq.getFrequencia();
+            }
+        }
+        return min;
+    }
+
+    public double calcularMaximoFrequenciaCardiaca() {
+        double max = Double.MIN_VALUE;
+        for (FrequenciaCardiaca freq : lstFreqCard) {
+            if (freq.getFrequencia() > max) {
+                max = freq.getFrequencia();
+            }
+        }
+        return max;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Hospital: ").append(nome);
+        sb.append("\nLista de pacientes:").append(lstPacientes);
+        sb.append("\nLista de Medições:").append(lstMedicao);
+        sb.append("\nLista de Profissionais de Saúde: ").append(lstProfissionais);
+        return sb.toString();
     }
 }

@@ -5,10 +5,10 @@ import org.example.utils.Data;
 public abstract class Pessoa {
     protected int id;
     protected String nome;
-    protected char sexo;
+    protected String sexo;
     protected Data dataNascimento;
 
-    public Pessoa(int id, String nome, char sexo, Data dataNascimento) {
+    public Pessoa(int id, String nome, String sexo, Data dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.sexo = sexo;
@@ -23,7 +23,7 @@ public abstract class Pessoa {
         return nome;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 

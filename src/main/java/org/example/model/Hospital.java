@@ -104,33 +104,6 @@ public class Hospital {
         return false;
     }
 
-    private void adicionarFrequenciaCardiaca() {
-        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
-        double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
-        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
-        int idTecnico = Utils.readIntFromConsole("Introduza o ID do técnico: ");
-        // Obter paciente e técnico com base nos IDs
-        // hospital.adicionarFreqCardiaca(dataRegisto, frequencia, paciente, tecnico);
-    }
-
-    private void adicionarTemperatura() {
-        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
-        double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
-        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
-        int idTecnico = Utils.readIntFromConsole("Introduza o ID do técnico: ");
-        // Obter paciente e técnico com base nos IDs
-        // hospital.adicionarTemperatura(dataRegisto, temperatura, paciente, tecnico);
-    }
-
-    private void adicionarSaturacao() {
-        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
-        double saturacao = Utils.readDoubleFromConsole("Introduza a saturação: ");
-        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
-        int idTecnico = Utils.readIntFromConsole("Introduza o ID do técnico: ");
-        // Obter paciente e técnico com base nos IDs
-        // hospital.adicionarSaturacao(dataRegisto, saturacao, paciente, tecnico);
-    }
-
     private String calcularMedia(List<Medida> lstMedicao) throws MedidaInvalidaException {
         double somaFc = 0;
         double somaTemp = 0;

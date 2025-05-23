@@ -30,7 +30,7 @@ public class Hospital {
         return false;
     }
 
-    public void adicionarMedida(Medida medida) {
+    public void adicionarMedidaLista(Medida medida) {
         lstMedicao.add(medida);
     }
 
@@ -43,6 +43,52 @@ public class Hospital {
                 System.out.println(paciente);
             }
         }
+    }
+    public void adicionarMedicoes() {
+        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
+        double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
+        double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
+        double saturacao = Utils.readDoubleFromConsole("Introduza a saturação: ");
+        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
+        int idProfissional = Utils.readIntFromConsole("Introduza o ID do profissional: ");
+
+        Paciente paciente = procurarPacienteID(idPaciente);
+        ProfissionalSaude profissional = procurarProfissionalID(idProfissional);
+
+        if (paciente == null) {
+            System.out.println("Paciente não encontrado.");
+            return;
+        }
+        if (profissional == null) {
+            System.out.println("Profissional de saúde não encontrado.");
+            return;
+        }
+
+        FrequenciaCardiaca freqCard = new FrequenciaCardiaca(dataRegisto, frequencia, paciente, profissional, lstMedicao);
+        Temperatura temp = new Temperatura(dataRegisto, temperatura, paciente, profissional, lstMedicao);
+        Saturacao sat = new Saturacao(dataRegisto, saturacao, paciente, profissional, lstMedicao);
+
+        adicionarMedidaLista(freqCard);
+        adicionarMedidaLista(temp);
+        adicionarMedidaLista(sat);
+    }
+
+    public Paciente procurarPacienteID(int id) {
+        for (Paciente paciente : lstPacientes) {
+            if (paciente.getId() == id) {
+                return paciente;
+            }
+        }
+        return null;
+    }
+
+    public ProfissionalSaude procurarProfissionalID(int id) {
+        for (ProfissionalSaude profissionalSaude : lstProfissionais) {
+            if (profissionalSaude.getId() == id) {
+                return profissionalSaude;
+            }
+        }
+        return null;
     }
 
     public List<Paciente> getLstPacientes() {

@@ -11,30 +11,6 @@ public class MedidasSumario {
         this.lstMedicao = lstMedicao;
     }
 
-    public String calcularMedia() throws MedidaInvalidaException {
-        double somaFc = 0;
-        double somaTemp = 0;
-        double somaSo = 0;
-        int contador = 0;
-
-        for (Medida medida : lstMedicao) {
-            if (medida instanceof FrequenciaCardiaca) {
-                somaFc += ((FrequenciaCardiaca) medida).getFrequencia();
-            } else if (medida instanceof Temperatura) {
-                somaTemp += ((Temperatura) medida).getTemperatura();
-            } else if (medida instanceof Saturacao) {
-                somaSo += ((Saturacao) medida).getSaturacao();
-            }
-            contador++;
-        }
-        if (contador == 0) {
-            throw new MedidaInvalidaException("Não há medições disponíveis.");
-        }
-        return "Média de valores de frequência cardíaca: " + (somaFc / contador) +
-                "\nMédia de valores de temperatura: " + (somaTemp / contador) +
-                "\nMédia de valores de saturação de oxigénio: " + (somaSo / contador);
-    }
-
     public String calcularMinimo(String tipo) throws MedidaInvalidaException {
         double minFc = Double.MAX_VALUE;
         double minTemp = Double.MAX_VALUE;
@@ -61,7 +37,7 @@ public class MedidasSumario {
                     encontrado = true;
                 }
             }
-            if (encontrado==false) {
+            if (encontrado == false) {
                 throw new MedidaInvalidaException("Não há medições disponíveis.");
             }
         }
@@ -84,7 +60,7 @@ public class MedidasSumario {
             } else if (medida instanceof Temperatura) {
                 Temperatura temp = (Temperatura) medida;
                 if (temp.getTemperatura() > maxTemp) {
-                    maxTemp= temp.getTemperatura();
+                    maxTemp = temp.getTemperatura();
                     encontrado = true;
                 }
             } else if (medida instanceof Saturacao) {
@@ -94,7 +70,7 @@ public class MedidasSumario {
                     encontrado = true;
                 }
             }
-            if (encontrado==false) {
+            if (encontrado == false) {
                 throw new MedidaInvalidaException("Não há medições disponíveis.");
             }
             return "Valor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
@@ -102,17 +78,51 @@ public class MedidasSumario {
         return "Valor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
     }
 
-    public double calcularDesvioPadraoFrequenciaCardiaca() throws MedidaInvalidaException {
-        double media = calcularMedia();
-        double soma = 0;
+    public String calcularMediaEDesvioPadrao() throws MedidaInvalidaException {
+        double somaFc = 0;
+        double somaQuadradosFc = 0;
+        double somaTemp = 0;
+        double somaQuadradosTemp = 0;
+        double somaSo = 0;
+        double somaQuadradosSo = 0;
         int contador = 0;
+        StringBuilder resultado = new StringBuilder();
 
         for (Medida medida : lstMedicao) {
+            double valor = 0;
+
             if (medida instanceof FrequenciaCardiaca) {
-                soma += Math.pow(((FrequenciaCardiaca) medida).getFrequencia() - media, 2);
-                contador++;
+                somaFc = somaFc + ((FrequenciaCardiaca) medida).getFrequencia();
+                somaQuadradosFc = somaQuadradosFc + ((FrequenciaCardiaca) medida).getFrequencia() * ((FrequenciaCardiaca) medida).getFrequencia();
+            } else if (medida instanceof Temperatura) {
+                somaTemp = somaTemp + ((Temperatura) medida).getTemperatura();
+                somaQuadradosTemp = somaQuadradosTemp + ((Temperatura) medida).getTemperatura() * ((Temperatura) medida).getTemperatura();
+            } else if (medida instanceof Saturacao) {
+                somaSo = somaSo + ((Saturacao) medida).getSaturacao();
+                somaQuadradosSo = somaQuadradosSo + ((Saturacao) medida).getSaturacao() * ((Saturacao) medida).getSaturacao();
             }
+            contador++;
         }
-        return Math.sqrt(soma / contador);
+
+        if (contador == 0) {
+            throw new MedidaInvalidaException("Não há medições disponíveis.");
+        } else {
+            double mediaFc = somaFc / contador;
+            double varianciaFc = (somaQuadradosFc / contador) - (mediaFc * mediaFc);
+            double desvioPadraoFc = Math.sqrt(varianciaFc);
+            resultado.append(String.format("Frequência Cardíaca - Média: %.2f, Desvio Padrão: %.2f%n", mediaFc, desvioPadraoFc));
+
+            double mediaTemp = somaTemp / contador;
+            double varianciaTemp = (somaQuadradosTemp / contador) - (mediaTemp * mediaTemp);
+            double desvioPadraoTemp = Math.sqrt(varianciaTemp);
+            resultado.append(String.format("Temperatura - Média: %.2f, Desvio Padrão: %.2f%n", mediaTemp, desvioPadraoTemp));
+            double mediaSo = somaSo / contador;
+            double varianciaSo = (somaQuadradosSo / contador) - (mediaSo * mediaSo);
+            double desvioPadraoSo = Math.sqrt(varianciaSo);
+            resultado.append(String.format("Saturação de Oxigênio - Média: %.2f, Desvio Padrão: %.2f%n", mediaSo, desvioPadraoSo));
+        }
+        return resultado.toString();
+
     }
-}
+    }
+

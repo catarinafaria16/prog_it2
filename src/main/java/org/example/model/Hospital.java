@@ -104,58 +104,6 @@ public class Hospital {
         return false;
     }
 
-    private String calcularMedia(List<Medida> lstMedicao) throws MedidaInvalidaException {
-        double somaFc = 0;
-        double somaTemp = 0;
-        double somaSo = 0;
-        int contador = 0;
-
-        for (Medida medida : lstMedicao) {
-            // Verifica se a medida é do tipo esperado e extrai o valor
-            if (medida instanceof FrequenciaCardiaca) {
-                somaFc += ((FrequenciaCardiaca) medida).getFrequencia();
-            } else if (medida instanceof Temperatura) {
-                somaTemp += ((Temperatura) medida).getTemperatura();
-            } else if (medida instanceof Saturacao) {
-                somaSo += ((Saturacao) medida).getSaturacao();
-            }
-            contador++;
-        }
-        if (contador == 0) {
-            throw new MedidaInvalidaException("Não há medições disponíveis.");
-        }
-        return "Média de valores de frequência cardíaca: " + somaFc / contador + "\nMédia de valores de temperatura: " + somaTemp / contador + "\nMédia de valores de saturação de oxigénio: " + somaSo / contador;
-    }
-
-    public double calcularDesvioPadraoFrequenciaCardiaca() {
-        double media = calcularMediaFrequenciaCardiaca();
-        double soma = 0;
-        for (FrequenciaCardiaca freq : lstFreqCard) {
-            soma += Math.pow(freq.getFrequencia() - media, 2);
-        }
-        return Math.sqrt(soma / lstFreqCard.size());
-    }
-
-    public double calcularMinimoFrequenciaCardiaca() {
-        double min = Double.MAX_VALUE;
-        for (FrequenciaCardiaca freq : lstFreqCard) {
-            if (freq.getFrequencia() < min) {
-                min = freq.getFrequencia();
-            }
-        }
-        return min;
-    }
-
-    public double calcularMaximoFrequenciaCardiaca() {
-        double max = Double.MIN_VALUE;
-        for (FrequenciaCardiaca freq : lstFreqCard) {
-            if (freq.getFrequencia() > max) {
-                max = freq.getFrequencia();
-            }
-        }
-        return max;
-    }
-
     public void listarProfissionaisOrdenados() {
         if (lstProfissionais.isEmpty()) {
             System.out.println("Não há profissionais de saúde registrados.");

@@ -1,9 +1,12 @@
 package org.example.model;
 
+import org.example.exception.MedidaInvalidaException;
 import org.example.utils.Data;
 import org.example.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Hospital {
@@ -26,6 +29,7 @@ public class Hospital {
         }
         return false;
     }
+
     public void adicionarMedida(Medida medida) {
         lstMedicao.add(medida);
     }
@@ -53,6 +57,7 @@ public class Hospital {
         }
         return false;
     }
+
     private void adicionarFrequenciaCardiaca() {
         Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
         double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
@@ -79,12 +84,28 @@ public class Hospital {
         // Obter paciente e técnico com base nos IDs
         // hospital.adicionarSaturacao(dataRegisto, saturacao, paciente, tecnico);
     }
-    public double calcularMediaFrequenciaCardiaca() {
-        double soma = 0;
-        for (FrequenciaCardiaca freq : lstFreqCard) {
-            soma += freq.getFrequencia();
+
+    private String calcularMedia(List<Medida> lstMedicao) throws MedidaInvalidaException {
+        double somaFc = 0;
+        double somaTemp = 0;
+        double somaSo = 0;
+        int contador = 0;
+
+        for (Medida medida : lstMedicao) {
+            // Verifica se a medida é do tipo esperado e extrai o valor
+            if (medida instanceof FrequenciaCardiaca) {
+                somaFc += ((FrequenciaCardiaca) medida).getFrequencia();
+            } else if (medida instanceof Temperatura) {
+                somaTemp += ((Temperatura) medida).getTemperatura();
+            } else if (medida instanceof Saturacao) {
+                somaSo += ((Saturacao) medida).getSaturacao();
+            }
+            contador++;
         }
-        return soma / lstFreqCard.size();
+        if (contador == 0) {
+            throw new MedidaInvalidaException("Não há medições disponíveis.");
+        }
+        return "Média de valores de frequência cardíaca: " + somaFc / contador + "\nMédia de valores de temperatura: " + somaTemp / contador + "\nMédia de valores de saturação de oxigénio: " + somaSo / contador;
     }
 
     public double calcularDesvioPadraoFrequenciaCardiaca() {
@@ -114,6 +135,24 @@ public class Hospital {
             }
         }
         return max;
+    }
+
+    public void listarProfissionaisOrdenados() {
+        if (lstProfissionais.isEmpty()) {
+            System.out.println("Não há profissionais de saúde registrados.");
+        } else {
+            // Ordenar a lista de profissionais pelo nome
+            Collections.sort(lstProfissionais, new Comparator<ProfissionalSaude>() {
+                @Override
+                public int compare(ProfissionalSaude p1, ProfissionalSaude p2) {
+                    return p1.getNome().compareToIgnoreCase(p2.getNome());
+                }
+            });
+            System.out.println("Lista de Profissionais de Saúde (ordenados por nome):");
+            for (ProfissionalSaude profissional : lstProfissionais) {
+                System.out.println(profissional);
+            }
+        }
     }
 
     @Override

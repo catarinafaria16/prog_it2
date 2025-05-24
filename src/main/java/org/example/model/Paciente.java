@@ -62,7 +62,22 @@ public class Paciente extends Pessoa {
         }
         return null; // não encontrado
     }
-
+    public String classificarPaciente() {
+        FrequenciaCardiaca ultimaFc = getUltimaFrequenciaCardiaca();
+        Temperatura ultimaTemp = getUltimaTemperatura();
+        Saturacao ultimaSat = getUltimaSaturacaoOxigenio();
+        if (ultimaFc == null || ultimaTemp == null || ultimaSat == null) {
+            throw new IllegalStateException("Medições incompletas para classificação.");
+        }
+        double fc = ultimaFc.getFrequencia();
+        double temp = ultimaTemp.getTemperatura();
+        double sat = ultimaSat.getSaturacao();
+        if (!(fc < 60.0) && !(fc > 120.0) && !(temp < 36.0) && !(temp > 38.5) && !(sat < 90.0)) {
+            return (!(fc > 100.0) || !(fc <= 120.0)) && (!(temp > 37.5) || !(temp <= 38.5)) && (!(sat >= 90.0) || !(sat < 95.0)) ? "Normal" : "Atenção";
+        } else {
+            return "Crítico";
+        }
+    }
     // Método que calcula o score de gravidade baseado nas últimas medições
     public double calcularScoreGravidadeUltimasMedicoes() {
         FrequenciaCardiaca ultFc = getUltimaFrequenciaCardiaca();

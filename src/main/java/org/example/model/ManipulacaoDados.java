@@ -53,4 +53,18 @@ public class ManipulacaoDados {
             }
         }
     }
+    public double calcularPercentagemPacientesCriticos(List<Paciente> lstPacientes) {
+        if (lstPacientes.isEmpty()) {
+            return 0.0;
+        }
+        int totalPacientes = lstPacientes.size();
+        int pacientesCriticos = 0;
+        for (Paciente paciente : lstPacientes) {
+            String classificacao = paciente.classificarPaciente();
+            if (classificacao.equals("Crítico")) {
+                pacientesCriticos++;
+            }
+        }
+        return (double) pacientesCriticos / totalPacientes * 100;
+    }
 }

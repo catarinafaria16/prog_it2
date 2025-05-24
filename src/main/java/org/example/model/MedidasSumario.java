@@ -1,15 +1,18 @@
 package org.example.model;
 
-import org.example.exception.MedidaInvalidaException;
-
 import java.util.List;
+
+import org.example.exception.MedidaInvalidaException;
 
 public class MedidasSumario {
     private List<Medida> lstMedicao;
-    private List<Paciente> lstPaciente = Hospital.getLstPacientes();
+    private Hospital hospital;
+    private List<Paciente> lstPaciente;
 
-    public MedidasSumario(List<Medida> lstMedicao) {
+    public MedidasSumario(List<Medida> lstMedicao, Hospital hospital) {
         this.lstMedicao = lstMedicao;
+        this.hospital = hospital;
+        this.lstPaciente = hospital.getLstPacientes();
     }
 
     public void calcularMedidasSumarioParaTodosPacientes() throws MedidaInvalidaException {

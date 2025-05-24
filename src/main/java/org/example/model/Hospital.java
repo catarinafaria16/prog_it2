@@ -1,5 +1,8 @@
 package org.example.model;
 
+import org.example.utils.Data;
+import org.example.utils.Utils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -7,7 +10,7 @@ import java.util.List;
 
 public class Hospital {
     private String nome;
-    private static List<Paciente> lstPacientes;
+    private final List<Paciente> lstPacientes;
     private final List<ProfissionalSaude> lstProfissionais;
 
     public Hospital(String nome) {
@@ -81,10 +84,29 @@ public class Hospital {
         return false;
     }
 
+    public void listarProfissionaisOrdenados() {
+        if (lstProfissionais.isEmpty()) {
+            System.out.println("Não há profissionais de saúde registrados.");
+        } else {
+            // Ordenar a lista de profissionais pelo nome
+            Collections.sort(lstProfissionais, new Comparator<ProfissionalSaude>() {
+                @Override
+                public int compare(ProfissionalSaude p1, ProfissionalSaude p2) {
+                    return p1.getNome().compareToIgnoreCase(p2.getNome());
+                }
+            });
+            System.out.println("Lista de Profissionais de Saúde (ordenados por nome):");
+            for (ProfissionalSaude profissional : lstProfissionais) {
+                System.out.println(profissional);
+            }
+        }
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Hospital: ").append(nome);
         sb.append("\nLista de pacientes:").append(lstPacientes);
+        sb.append("\nLista de Medições:").append(lstMedicao);
         sb.append("\nLista de Profissionais de Saúde: ").append(lstProfissionais);
         return sb.toString();
     }

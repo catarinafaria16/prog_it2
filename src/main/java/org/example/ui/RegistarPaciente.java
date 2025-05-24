@@ -2,10 +2,11 @@ package org.example.ui;
 
 import org.example.model.Hospital;
 import org.example.model.Paciente;
+import org.example.model.ProfissionalSaude;
 import org.example.utils.Data;
 import org.example.utils.Utils;
 
-public class RegistarPaciente{
+public class RegistarPaciente {
     private Hospital hospital;
 
     public RegistarPaciente(Hospital hospital) {
@@ -37,10 +38,22 @@ public class RegistarPaciente{
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
     }
 
-
-
     private void apresentaDados(Paciente paciente) {
         System.out.println("Paciente: " + paciente.toString());
+    }
+
+    private void introduzMedicoes(Paciente paciente) {
+        int idProfissional = Utils.readIntFromConsole("Introduza o ID do profissional: ");
+        int id = Utils.readIntFromConsole("Introduza o id do paciente: ");
+        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
+        double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
+        double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
+        double saturacao = Utils.readDoubleFromConsole("Introduza a saturação: ");
+        ProfissionalSaude profissional = hospital.procurarProfissionalID(idProfissional);
+        if (profissional == null) {
+            System.out.println("Profissional de saúde não encontrado.");
+            return;
+        }
     }
 }
 

@@ -26,15 +26,29 @@ public class Hospital {
         }
         return false;
     }
-
-    public void adicionarMedidaAoPaciente(int idPaciente, Medida medida) {
+    public void adicionarMedidaAoPaciente(int idPaciente, Medida medida, int idProfissional) {
+        ProfissionalSaude profissional = procurarProfissionalID(idProfissional);
+        if (profissional == null) {
+            System.out.println("Profissional de saúde não encontrado.");
+            return;
+        }
         for (Paciente paciente : lstPacientes) {
             if (paciente.getId() == idPaciente) {
+                // Associa o profissional à medição antes de adicionar
+                medida.setProfissional(profissional);
                 paciente.adicionarMedida(medida); // Adiciona a medição ao paciente correspondente
                 return;
             }
         }
         System.out.println("Paciente não encontrado.");
+    }
+    public ProfissionalSaude procurarProfissionalID(int idProfissional) {
+        for (ProfissionalSaude profissional : lstProfissionais) {
+            if (profissional.getId() == idProfissional) {
+                return profissional;
+            }
+        }
+        return null; // Não encontrado
     }
 
     public void visualizarPacientes() {
@@ -47,48 +61,11 @@ public class Hospital {
             }
         }
     }
-    public void adicionarMedicoes() {
-        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
-        double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
-        double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
-        double saturacao = Utils.readDoubleFromConsole("Introduza a saturação: ");
-        int idPaciente = Utils.readIntFromConsole("Introduza o ID do paciente: ");
-        int idProfissional = Utils.readIntFromConsole("Introduza o ID do profissional: ");
-
-        Paciente paciente = procurarPacienteID(idPaciente);
-        ProfissionalSaude profissional = procurarProfissionalID(idProfissional);
-
-        if (paciente == null) {
-            System.out.println("Paciente não encontrado.");
-            return;
-        }
-        if (profissional == null) {
-            System.out.println("Profissional de saúde não encontrado.");
-            return;
-        }
-
-        FrequenciaCardiaca freqCard = new FrequenciaCardiaca(dataRegisto, frequencia, paciente, profissional, lstMedicao);
-        Temperatura temp = new Temperatura(dataRegisto, temperatura, paciente, profissional, lstMedicao);
-        Saturacao sat = new Saturacao(dataRegisto, saturacao, paciente, profissional, lstMedicao);
-
-        adicionarMedidaLista(freqCard);
-        adicionarMedidaLista(temp);
-        adicionarMedidaLista(sat);
-    }
 
     public Paciente procurarPacienteID(int id) {
         for (Paciente paciente : lstPacientes) {
             if (paciente.getId() == id) {
                 return paciente;
-            }
-        }
-        return null;
-    }
-
-    public ProfissionalSaude procurarProfissionalID(int id) {
-        for (ProfissionalSaude profissionalSaude : lstProfissionais) {
-            if (profissionalSaude.getId() == id) {
-                return profissionalSaude;
             }
         }
         return null;

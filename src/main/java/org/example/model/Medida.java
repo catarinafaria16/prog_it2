@@ -32,4 +32,7 @@ public class Medida {
         sb.append(", Profissional de Saúde: ").append(profissionalSaude);
         return sb.toString();
     }
+
+    public void setProfissional(ProfissionalSaude profissional) {
+    }
 }

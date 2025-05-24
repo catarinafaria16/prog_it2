@@ -1,9 +1,9 @@
 package org.example.model;
 
-import org.example.utils.Data;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.utils.Data;
 
 public class Paciente extends Pessoa {
     private Data dataInternamento;

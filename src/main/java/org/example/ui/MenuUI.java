@@ -3,7 +3,6 @@ package org.example.ui;
 import java.util.Scanner;
 
 import org.example.model.Hospital;
-import org.example.utils.ScoreGravidade;
 
 public class MenuUI {
     private Hospital hospital;
@@ -29,6 +28,7 @@ public class MenuUI {
             System.out.println("1. Visualizar pacientes");
             System.out.println("2. Mostrar gráficos de medições");
             System.out.println("3. Calcular score de gravidade");
+            System.out.println("4. Percentagem de Pacientes em Situação Crítica ");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -42,6 +42,9 @@ public class MenuUI {
                     break;
                 case 3:
                     calcularScore(scanner);
+                    break;
+                case 4:
+                    calcularPercentagemPacientesCriticos();
                     break;
                 case 0:
                     System.out.println("A sair...");
@@ -70,9 +73,10 @@ public class MenuUI {
             else if (m instanceof org.example.model.Saturacao s)
                 spo2 = s.getSaturacao();
         }
+    }
 
-        double score = ScoreGravidade.calcularScore(fc, temp, spo2);
-        String interpretacao = ScoreGravidade.interpretarScore(score);
-        System.out.printf("Score: %.2f → %s%n", score, interpretacao);
+    private void calcularPercentagemPacientesCriticos() {
+        double percentagem = org.example.model.ManipulacaoDados.calcularPercentagemPacientesCriticos(Hospital.getLstPacientes());
+        System.out.printf("Percentagem de pacientes críticos: %.2f%%%n", percentagem);
     }
 }

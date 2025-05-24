@@ -53,7 +53,7 @@ public class ManipulacaoDados {
             }
         }
     }
-    public double calcularPercentagemPacientesCriticos(List<Paciente> lstPacientes) {
+    public static double calcularPercentagemPacientesCriticos(List<Paciente> lstPacientes) {
         if (lstPacientes.isEmpty()) {
             return 0.0;
         }

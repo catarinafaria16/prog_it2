@@ -11,6 +11,14 @@ public class MenuUI {
         this.hospital = hospital;
     }
 
+    private void mostrarGraficos() {
+        hospital.getLstPacientes().forEach(paciente -> {
+            System.out.println("\nPaciente: " + paciente.getNome());
+            paciente.getLstMedicao().forEach(medida -> {
+                org.example.model.GraficoMedicoes.imprimirBarras(medida);
+            });
+        });
+    }
     public void run() {
         Scanner scanner = new Scanner(System.in);
         int opcao;
@@ -18,6 +26,7 @@ public class MenuUI {
         do {
             System.out.println("\n--- Menu UCI ---");
             System.out.println("1. Visualizar pacientes");
+            System.out.println("2. Mostrar gráficos de medições");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -25,6 +34,9 @@ public class MenuUI {
             switch (opcao) {
                 case 1:
                     System.out.println("[Pacientes: funcionalidade ainda não implementada]");
+                    break;
+                case 2:
+                    mostrarGraficos();
                     break;
                 case 0:
                     System.out.println("A sair...");

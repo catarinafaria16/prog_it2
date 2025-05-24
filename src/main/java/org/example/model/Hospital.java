@@ -12,6 +12,7 @@ public class Hospital {
     private String nome;
     private final List<Paciente> lstPacientes;
     private final List<ProfissionalSaude> lstProfissionais;
+    private final List<Medida> lstMedicao = new ArrayList<>();
 
     public Hospital(String nome) {
         this.nome = nome;
@@ -37,6 +38,7 @@ public class Hospital {
                 // Associa o profissional à medição antes de adicionar
                 medida.setProfissional(profissional);
                 paciente.adicionarMedida(medida); // Adiciona a medição ao paciente correspondente
+                lstMedicao.add(medida);
                 return;
             }
         }
@@ -71,7 +73,7 @@ public class Hospital {
         return null;
     }
 
-    public static List<Paciente> getLstPacientes() {
+    public  List<Paciente> getLstPacientes() {
         return lstPacientes;
     }
 
@@ -101,6 +103,17 @@ public class Hospital {
             }
         }
     }
+    // Método para visualizar medições//
+
+    public void visualizarMedicoes() {
+    if (lstMedicao.isEmpty()) {
+        System.out.println("Não há medições registadas.");
+    } else {
+        for (Medida m : lstMedicao) {
+            System.out.println(m);
+        }
+    }
+}
 
     @Override
     public String toString() {
@@ -110,4 +123,14 @@ public class Hospital {
         sb.append("\nLista de Profissionais de Saúde: ").append(lstProfissionais);
         return sb.toString();
     }
+
+public int gerarNovoIdPaciente() {
+    int maxId = 0;
+    for (Paciente p : lstPacientes) {
+        if (p.getId() > maxId) {
+            maxId = p.getId();
+        }
+    }
+    return maxId + 1;
+}
 }

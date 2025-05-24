@@ -1,8 +1,11 @@
 package org.example.ui;
 
+import org.example.model.FrequenciaCardiaca;
 import org.example.model.Hospital;
 import org.example.model.Paciente;
 import org.example.model.ProfissionalSaude;
+import org.example.model.Saturacao;
+import org.example.model.Temperatura;
 import org.example.utils.Data;
 import org.example.utils.Utils;
 
@@ -22,6 +25,7 @@ public class RegistarPaciente {
         if (Utils.confirma("Confirma os dados? (S/N)")) {
             if (hospital.adicionarPaciente(novoPaciente)) {
                 System.out.println("Dados do paciente guardados com sucesso.");
+                introduzMedicoes(novoPaciente);
             } else {
                 System.out.println("Não foi possível guardar os dados do paciente.");
             }
@@ -29,7 +33,7 @@ public class RegistarPaciente {
     }
 
     private Paciente introduzDados() {
-        int id = Utils.readIntFromConsole("Introduza o id do paciente: ");
+        int id = hospital.gerarNovoIdPaciente(); // ou usa uma lógica de incremento
         String nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
         String sexo = Utils.readLineFromConsole("Introduza o sexo do paciente (M/F): ");
         Data dataNascimento = Utils.readDateFromConsole("Introduza a data de nascimento (dd-MM-yyyy): ");
@@ -44,16 +48,33 @@ public class RegistarPaciente {
 
     private void introduzMedicoes(Paciente paciente) {
         int idProfissional = Utils.readIntFromConsole("Introduza o ID do profissional: ");
-        int id = Utils.readIntFromConsole("Introduza o id do paciente: ");
-        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
-        double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
-        double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
-        double saturacao = Utils.readDoubleFromConsole("Introduza a saturação: ");
         ProfissionalSaude profissional = hospital.procurarProfissionalID(idProfissional);
         if (profissional == null) {
             System.out.println("Profissional de saúde não encontrado.");
             return;
         }
+
+        Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
+        double frequencia = Utils.readDoubleFromConsole("Introduza a frequência cardíaca: ");
+        double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
+        double saturacao = Utils.readDoubleFromConsole("Introduza a saturação de oxigénio: ");
+
+        hospital.adicionarMedidaAoPaciente(
+            paciente.getId(),
+            new FrequenciaCardiaca(dataRegisto, paciente, profissional, frequencia),
+            idProfissional
+        );
+
+        hospital.adicionarMedidaAoPaciente(
+            paciente.getId(),
+            new Temperatura(dataRegisto, paciente, profissional, temperatura),
+            idProfissional
+        );
+
+        hospital.adicionarMedidaAoPaciente(
+            paciente.getId(),
+            new Saturacao(dataRegisto, paciente, profissional, saturacao),
+            idProfissional
+        );
     }
 }
-

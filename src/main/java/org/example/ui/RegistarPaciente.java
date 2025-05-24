@@ -37,6 +37,8 @@ public class RegistarPaciente{
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
     }
 
+
+
     private void apresentaDados(Paciente paciente) {
         System.out.println("Paciente: " + paciente.toString());
     }

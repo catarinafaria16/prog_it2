@@ -2,15 +2,19 @@ package org.example.model;
 
 import org.example.utils.Data;
 
+import java.util.List;
+
 public class Medida {
+    private final List<Medida> lstMedicao;
     private Data dataRegisto;
     private Paciente paciente;
     private ProfissionalSaude profissionalSaude;
 
-    public Medida(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude) {
+    public Medida(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude, List<Medida> lstMedicao) {
         this.dataRegisto = dataRegisto;
         this.paciente = paciente;
         this.profissionalSaude = profissionalSaude;
+        this.lstMedicao = lstMedicao;
     }
 
     public Data getDataRegisto() {

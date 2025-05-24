@@ -5,3 +5,4 @@ public class MedidaInvalidaException extends Exception {
         super(message);
     }
 }
+// VERIFICAR COMO TRATAMOS EXCEÇÃO EM MEDIDASSUMARIO

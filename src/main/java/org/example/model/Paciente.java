@@ -1,17 +1,25 @@
 package org.example.model;
 
-import org.example.model.FrequenciaCardiaca;
-import org.example.model.Pessoa;
-import org.example.model.Saturacao;
-import org.example.model.Temperatura;
 import org.example.utils.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Paciente extends Pessoa {
     private Data dataInternamento;
+    private List<Medida> lstMedicao;
 
     public Paciente(int id, String nome, String sexo, Data dataNascimento, Data dataInternamento) {
         super(id, nome, sexo, dataNascimento);
         this.dataInternamento = dataInternamento;
+        lstMedicao = new ArrayList<>();
+    }
+
+    public void adicionarMedida(Medida medida) {
+        lstMedicao.add(medida); // Adiciona uma nova medição à lista do paciente
+    }
+    public List<Medida> getLstMedicao() {
+        return lstMedicao; // Retorna a lista de medições do paciente
     }
 
     public Data getDataInternamento() {
@@ -22,19 +30,85 @@ public class Paciente extends Pessoa {
         this.dataInternamento = dataInternamento;
     }
 
-    public String classificarPaciente(FrequenciaCardiaca freq, Temperatura temp, Saturacao sat) {
-        if (freq.getFrequencia() >= 60 && freq.getFrequencia() <= 100 &&
-                temp.getTemperatura() >= 36 && temp.getTemperatura() <= 37.5 &&
-                sat.getSaturacao() >= 95) {
-            return "Normal";
-        } else if ((freq.getFrequencia() > 100 && freq.getFrequencia() <= 120) ||
-                (temp.getTemperatura() > 37.5 && temp.getTemperatura() <= 38.5) ||
-                (sat.getSaturacao() < 95 && sat.getSaturacao() >= 90)) {
-            return "Atenção";
+    // Método para obter a última medição de FrequenciaCardiaca
+    private FrequenciaCardiaca getUltimaFrequenciaCardiaca() {
+        for (int i = lstMedicao.size() - 1; i >= 0; i--) {
+            Medida m = lstMedicao.get(i);
+            if (m instanceof FrequenciaCardiaca) {
+                return (FrequenciaCardiaca)m;
+            }
+        }
+        return null; // não encontrado
+    }
+
+    // Método para obter a última medição de Temperatura
+    private Temperatura getUltimaTemperatura() {
+        for (int i = lstMedicao.size() - 1; i >= 0; i--) {
+            Medida m = lstMedicao.get(i);
+            if (m instanceof Temperatura) {
+                return (Temperatura)m;
+            }
+        }
+        return null; // não encontrado
+    }
+
+    // Método para obter a última medição de SaturacaoOxigenio
+    private Saturacao getUltimaSaturacaoOxigenio() {
+        for (int i = lstMedicao.size() - 1; i >= 0; i--) {
+            Medida m = lstMedicao.get(i);
+            if (m instanceof Saturacao) {
+                return (Saturacao)m;
+            }
+        }
+        return null; // não encontrado
+    }
+
+    // Método que calcula o score de gravidade baseado nas últimas medições
+    public double calcularScoreGravidadeUltimasMedicoes() {
+        FrequenciaCardiaca ultFc = getUltimaFrequenciaCardiaca();
+        Temperatura ultTemp = getUltimaTemperatura();
+        Saturacao ultSo = getUltimaSaturacaoOxigenio();
+
+        if (ultFc == null || ultTemp == null || ultSo == null) {
+            throw new IllegalStateException("Medições incompletas para cálculo do score de gravidade.");
+        }
+
+        int fcScore = pontuarFrequenciaCardiaca(ultFc.getFrequencia());
+        int tempScore = pontuarTemperatura(ultTemp.getTemperatura());
+        int spo2Score = pontuarSaturacao(ultSo.getSaturacao());
+
+        return fcScore * 0.3 + tempScore * 0.4 + spo2Score * 0.3;
+    }
+
+    // Métodos de pontuação - mesmas regras já usadas antes
+    private int pontuarFrequenciaCardiaca(double fc) {
+        if (fc < 60) return 5;
+        else if (fc <= 100) return 1;
+        else if (fc <= 120) return 3;
+        else return 5;
+    }
+
+    private int pontuarTemperatura(double temp) {
+        if (temp < 36) return 5;
+        else if (temp <= 37.5) return 1;
+        else if (temp <= 39) return 3;
+        else return 5;
+    }
+    private int pontuarSaturacao(double spo2) {
+        if (spo2 >= 95) return 1;
+        else if (spo2 >= 90) return 3;
+        else return 5;
+    }
+    public String interpretarScoreGravidade(double score) {
+        if (score >= 1 && score <= 2) {
+            return "Gravidade Baixa";
+        } else if (score > 2 && score <= 3.5) {
+            return "Gravidade Moderada";
         } else {
-            return "Crítico";
+            return "Gravidade Alta";
         }
     }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(super.toString());

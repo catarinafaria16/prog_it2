@@ -1,6 +1,5 @@
 package org.example.model;
 
-import org.example.exception.MedidaInvalidaException;
 import org.example.utils.Data;
 import org.example.utils.Utils;
 
@@ -13,11 +12,9 @@ public class Hospital {
     private String nome;
     private final List<Paciente> lstPacientes;
     private final List<ProfissionalSaude> lstProfissionais;
-    private final List<Medida> lstMedicao;
 
     public Hospital(String nome) {
         this.nome = nome;
-        this.lstMedicao = new ArrayList<>();
         this.lstPacientes = new ArrayList<>();
         this.lstProfissionais = new ArrayList<>();
     }
@@ -30,8 +27,14 @@ public class Hospital {
         return false;
     }
 
-    public void adicionarMedidaLista(Medida medida) {
-        lstMedicao.add(medida);
+    public void adicionarMedidaAoPaciente(int idPaciente, Medida medida) {
+        for (Paciente paciente : lstPacientes) {
+            if (paciente.getId() == idPaciente) {
+                paciente.adicionarMedida(medida); // Adiciona a medição ao paciente correspondente
+                return;
+            }
+        }
+        System.out.println("Paciente não encontrado.");
     }
 
     public void visualizarPacientes() {

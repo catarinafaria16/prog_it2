@@ -71,7 +71,7 @@ public class Hospital {
         return null;
     }
 
-    public List<Paciente> getLstPacientes() {
+    public static List<Paciente> getLstPacientes() {
         return lstPacientes;
     }
 

@@ -6,43 +6,47 @@ import java.util.List;
 
 public class MedidasSumario {
     private List<Medida> lstMedicao;
+    private List<Paciente> lstPaciente = Hospital.getLstPacientes();
 
     public MedidasSumario(List<Medida> lstMedicao) {
         this.lstMedicao = lstMedicao;
     }
 
-    public String calcularMinimo(String tipo) throws MedidaInvalidaException {
+    public void calcularMinimo(String tipo) throws MedidaInvalidaException {
         double minFc = Double.MAX_VALUE;
         double minTemp = Double.MAX_VALUE;
         double minSo = Double.MAX_VALUE;
         boolean encontrado = false;
-
-        for (Medida medida : lstMedicao) {
-            if (medida instanceof FrequenciaCardiaca) {
-                FrequenciaCardiaca freq = (FrequenciaCardiaca) medida;
-                if (freq.getFrequencia() < minFc) {
-                    minFc = freq.getFrequencia();
-                    encontrado = true;
+        for (Paciente p : lstPaciente) {
+            System.out.println("Paciente: " + p.getId());
+            for (Medida medida : lstMedicao) {
+                if (medida instanceof FrequenciaCardiaca) {
+                    FrequenciaCardiaca freq = (FrequenciaCardiaca) medida;
+                    if (freq.getFrequencia() < minFc) {
+                        minFc = freq.getFrequencia();
+                        encontrado = true;
+                    }
+                } else if (medida instanceof Temperatura) {
+                    Temperatura temp = (Temperatura) medida;
+                    if (temp.getTemperatura() < minTemp) {
+                        minTemp = temp.getTemperatura();
+                        encontrado = true;
+                    }
+                } else if (medida instanceof Saturacao) {
+                    Saturacao sat = (Saturacao) medida;
+                    if (sat.getSaturacao() < minSo) {
+                        minSo = sat.getSaturacao();
+                        encontrado = true;
+                    }
                 }
-            } else if (medida instanceof Temperatura) {
-                Temperatura temp = (Temperatura) medida;
-                if (temp.getTemperatura() < minTemp) {
-                    minTemp = temp.getTemperatura();
-                    encontrado = true;
-                }
-            } else if (medida instanceof Saturacao) {
-                Saturacao sat = (Saturacao) medida;
-                if (sat.getSaturacao() < minSo) {
-                    minSo = sat.getSaturacao();
-                    encontrado = true;
+                if (encontrado == false) {
+                    throw new MedidaInvalidaException("Não há medições disponíveis.");
                 }
             }
-            if (encontrado == false) {
-                throw new MedidaInvalidaException("Não há medições disponíveis.");
-            }
+            System.out.println("Valor mínimo de frequência cardíaca: " + minFc + "\nValor mínimo de temperatura: " + minTemp + "\nValor mínimo de saturação de oxigénio: " + minSo);
         }
-        return "Valor mínimo de frequência cardíaca: " + minFc + "\nValor mínimo de temperatura: " + minTemp + "\nValor mínimo de saturação de oxigénio: " + minSo;
     }
+
 
     public String calcularMaximo(String tipo) throws MedidaInvalidaException {
         double maxFc = Double.MIN_VALUE;

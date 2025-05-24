@@ -34,5 +34,6 @@ public class Medida {
     }
 
     public void setProfissional(ProfissionalSaude profissional) {
+
     }
 }

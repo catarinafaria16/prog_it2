@@ -1,0 +1,56 @@
+package org.example.model;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class ManipulacaoDados {
+
+    public static void listarPacientesOrdenados(List<Paciente> lstPacientes) {
+        if (lstPacientes.isEmpty()) {
+            System.out.println("Não há pacientes registrados.");
+        } else {
+            // Ordenar a lista de pacientes pelo nome e, em caso de empate, pela data de nascimento
+            Collections.sort(lstPacientes, new Comparator<Paciente>() {
+                @Override
+                public int compare(Paciente p1, Paciente p2) {
+                    int ComparacaoNome = p1.getNome().compareToIgnoreCase(p2.getNome());
+                    if (ComparacaoNome != 0) {
+                        return ComparacaoNome; // Se os nomes são diferentes, retorna a comparação
+                    } else {
+                        // Se os nomes são iguais, compara as datas de nascimento
+                        return p1.getDataNascimento().compareTo(p2.getDataNascimento());
+                    }
+                }
+            });
+
+            System.out.println("Lista de Pacientes (ordenados por nome e data de nascimento):");
+            for (Paciente paciente : lstPacientes) {
+                System.out.println(paciente);
+            }
+        }
+    }
+
+    public static void alterarSinaisVitais(List<Paciente> lstPacientes, double percentualAlteracao) {
+        for (Paciente paciente : lstPacientes) {
+            for (Medida medida : paciente.getLstMedicao()) {
+                if (medida instanceof FrequenciaCardiaca) {
+                    FrequenciaCardiaca fc = (FrequenciaCardiaca) medida;
+                    double novaFrequencia = fc.getFrequencia() * (1 + percentualAlteracao / 100);
+                    fc.setFrequencia(novaFrequencia);
+                    System.out.println("Frequência cardíaca alterada para: " + novaFrequencia + " do paciente " + paciente.getId());
+                } else if (medida instanceof Temperatura) {
+                    Temperatura temp = (Temperatura) medida;
+                    double novaTemperatura = temp.getTemperatura() * (1 + percentualAlteracao / 100);
+                    temp.setTemperatura(novaTemperatura);
+                    System.out.println("Temperatura alterada para: " + novaTemperatura + " do paciente " + paciente.getId());
+                } else if (medida instanceof Saturacao) {
+                    Saturacao sat = (Saturacao) medida;
+                    double novaSaturacao = sat.getSaturacao() * (1 + percentualAlteracao / 100);
+                    sat.setSaturacao(novaSaturacao);
+                    System.out.println("Saturação alterada para: " + novaSaturacao + " do paciente " + paciente.getId());
+                }
+            }
+        }
+    }
+}

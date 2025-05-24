@@ -12,49 +12,57 @@ public class MedidasSumario {
         this.lstMedicao = lstMedicao;
     }
 
-    public void calcularMinimo(String tipo) throws MedidaInvalidaException {
-        double minFc = Double.MAX_VALUE;
-        double minTemp = Double.MAX_VALUE;
-        double minSo = Double.MAX_VALUE;
-        boolean encontrado = false;
-        for (Paciente p : lstPaciente) {
-            System.out.println("Paciente: " + p.getId());
-            for (Medida medida : lstMedicao) {
-                if (medida instanceof FrequenciaCardiaca) {
-                    FrequenciaCardiaca freq = (FrequenciaCardiaca) medida;
-                    if (freq.getFrequencia() < minFc) {
-                        minFc = freq.getFrequencia();
-                        encontrado = true;
-                    }
-                } else if (medida instanceof Temperatura) {
-                    Temperatura temp = (Temperatura) medida;
-                    if (temp.getTemperatura() < minTemp) {
-                        minTemp = temp.getTemperatura();
-                        encontrado = true;
-                    }
-                } else if (medida instanceof Saturacao) {
-                    Saturacao sat = (Saturacao) medida;
-                    if (sat.getSaturacao() < minSo) {
-                        minSo = sat.getSaturacao();
-                        encontrado = true;
-                    }
-                }
-                if (encontrado == false) {
-                    throw new MedidaInvalidaException("Não há medições disponíveis.");
-                }
-            }
-            System.out.println("Valor mínimo de frequência cardíaca: " + minFc + "\nValor mínimo de temperatura: " + minTemp + "\nValor mínimo de saturação de oxigénio: " + minSo);
+    public void calcularMedidasSumarioParaTodosPacientes() throws MedidaInvalidaException {
+        for (Paciente paciente : Hospital.getLstPacientes()) {
+            System.out.println("Paciente: " + paciente.getId());
+            calcularMinimo(paciente);
+            calcularMaximo(paciente);
+            calcularMediaEDesvioPadrao(paciente);
         }
     }
 
 
-    public String calcularMaximo(String tipo) throws MedidaInvalidaException {
+    public String calcularMinimo(Paciente paciente) throws MedidaInvalidaException {
+        double minFc = Double.MAX_VALUE;
+        double minTemp = Double.MAX_VALUE;
+        double minSo = Double.MAX_VALUE;
+        boolean encontrado = false;
+
+        for (Medida medida : paciente.getLstMedicao()) {
+            if (medida instanceof FrequenciaCardiaca) {
+                FrequenciaCardiaca freq = (FrequenciaCardiaca) medida;
+                if (freq.getFrequencia() < minFc) {
+                    minFc = freq.getFrequencia();
+                    encontrado = true;
+                }
+            } else if (medida instanceof Temperatura) {
+                Temperatura temp = (Temperatura) medida;
+                if (temp.getTemperatura() < minTemp) {
+                    minTemp = temp.getTemperatura();
+                    encontrado = true;
+                }
+            } else if (medida instanceof Saturacao) {
+                Saturacao sat = (Saturacao) medida;
+                if (sat.getSaturacao() < minSo) {
+                    minSo = sat.getSaturacao();
+                    encontrado = true;
+                }
+            }
+        }
+
+        if (!encontrado) {
+            throw new MedidaInvalidaException("Não há medições disponíveis.");
+        }
+        return "Valor mínimo de frequência cardíaca: " + minFc + "\nValor mínimo de temperatura: " + minTemp + "\nValor mínimo de saturação de oxigénio: " + minSo;
+    }
+
+    public String calcularMaximo(Paciente paciente) throws MedidaInvalidaException {
         double maxFc = Double.MIN_VALUE;
         double maxTemp = Double.MIN_VALUE;
         double maxSo = Double.MIN_VALUE;
         boolean encontrado = false;
 
-        for (Medida medida : lstMedicao) {
+        for (Medida medida : paciente.getLstMedicao()) {
             if (medida instanceof FrequenciaCardiaca) {
                 FrequenciaCardiaca freq = (FrequenciaCardiaca) medida;
                 if (freq.getFrequencia() > maxFc) {
@@ -77,12 +85,11 @@ public class MedidasSumario {
             if (encontrado == false) {
                 throw new MedidaInvalidaException("Não há medições disponíveis.");
             }
-            return "Valor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
         }
         return "Valor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
     }
 
-    public String calcularMediaEDesvioPadrao() throws MedidaInvalidaException {
+    public String calcularMediaEDesvioPadrao(Paciente paciente) throws MedidaInvalidaException {
         double somaFc = 0;
         double somaQuadradosFc = 0;
         double somaTemp = 0;
@@ -92,7 +99,7 @@ public class MedidasSumario {
         int contador = 0;
         StringBuilder resultado = new StringBuilder();
 
-        for (Medida medida : lstMedicao) {
+        for (Medida medida : paciente.getLstMedicao()) {
             double valor = 0;
 
             if (medida instanceof FrequenciaCardiaca) {
@@ -126,7 +133,6 @@ public class MedidasSumario {
             resultado.append(String.format("Saturação de Oxigênio - Média: %.2f, Desvio Padrão: %.2f%n", mediaSo, desvioPadraoSo));
         }
         return resultado.toString();
-
     }
     }
 

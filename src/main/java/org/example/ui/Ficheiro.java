@@ -45,7 +45,7 @@ public class Ficheiro {
                     pacientes.add(paciente);
                 }
             }
-        } catch (IOException | ParseException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

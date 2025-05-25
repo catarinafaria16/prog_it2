@@ -9,7 +9,7 @@ public class Data {
     private int ano;
     private int mes;
     private int dia;
-    private Data data;
+    public Data data;
 
     private static final int ANO_POR_OMISSAO = 1;
     private static final int MES_POR_OMISSAO = 1;
@@ -19,10 +19,12 @@ public class Data {
     private static int[] diasPorMes = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     private static String[] nomeMes = {"Inválido", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
-    public static Data fromString(String dataString) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Ajuste o formato conforme necessário
-        Date date = sdf.parse(dataString);
-        return new Data(data);
+    public static Data fromString(String dataString) {
+        String[] partes = dataString.split("-");
+        int dia = Integer.parseInt(partes[2]);
+        int mes = Integer.parseInt(partes[1]);
+        int ano = Integer.parseInt(partes[0]);
+        return new Data(dia, mes, ano);
     }
 
     public Data(int ano, int mes, int dia) {

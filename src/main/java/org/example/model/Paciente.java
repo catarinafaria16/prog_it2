@@ -11,7 +11,7 @@ public class Paciente extends Pessoa {
 
     public Paciente(int id, String nome, String sexo, Data dataNascimento, Data dataInternamento) {
         super(id, nome, sexo, dataNascimento);
-        this.dataInternamento = dataInternamento;
+        this.dataInternamento = new Data(dataInternamento);
         lstMedicao = new ArrayList<>();
     }
 

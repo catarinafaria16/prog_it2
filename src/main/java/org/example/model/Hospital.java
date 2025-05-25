@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Hospital {
     private String nome;
-    private final List<Paciente> lstPacientes;
+    private static List<Paciente> lstPacientes;
     private final List<ProfissionalSaude> lstProfissionais;
 
     public Hospital(String nome) {
@@ -106,7 +106,6 @@ public class Hospital {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Hospital: ").append(nome);
         sb.append("\nLista de pacientes:").append(lstPacientes);
-        sb.append("\nLista de Medições:").append(lstMedicao);
         sb.append("\nLista de Profissionais de Saúde: ").append(lstProfissionais);
         return sb.toString();
     }

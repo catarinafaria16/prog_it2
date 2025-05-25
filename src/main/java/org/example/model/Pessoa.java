@@ -19,17 +19,28 @@ public abstract class Pessoa {
     public int getId() {
         return id;
     }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
     }
-
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
     public String getSexo() {
         return sexo;
+    }
+    public void setSexo(String Sexo) {
+        this.sexo = sexo;
     }
 
     public Data getDataNascimento() {
         return dataNascimento;
+    }
+    public void setDataNascimento(Data dataNascimento) {
+        this.dataNascimento = dataNascimento;
     }
 
     @Override

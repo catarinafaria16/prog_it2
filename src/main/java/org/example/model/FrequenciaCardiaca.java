@@ -2,11 +2,13 @@ package org.example.model;
 
 import org.example.utils.Data;
 
+import java.util.List;
+
 public class FrequenciaCardiaca extends Medida {
     private double frequencia;
 
-    public FrequenciaCardiaca(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude, double frequencia) {
-        super(dataRegisto, paciente, profissionalSaude);
+    public FrequenciaCardiaca(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude, double frequencia)  {
+        super(dataRegisto, paciente, profissionalSaude) ;
         this.frequencia = frequencia;
     }
 

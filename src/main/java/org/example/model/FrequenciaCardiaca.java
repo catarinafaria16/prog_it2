@@ -2,8 +2,6 @@ package org.example.model;
 
 import org.example.utils.Data;
 
-import java.util.List;
-
 public class FrequenciaCardiaca extends Medida {
     private double frequencia;
 

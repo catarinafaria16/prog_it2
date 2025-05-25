@@ -7,17 +7,12 @@ import org.example.utils.Data;
 import org.example.utils.Utils;
 
 public class RegistarPaciente {
-    private Hospital hospital;
+    private static Hospital hospital;
 
-    public RegistarPaciente(Hospital hospital) {
-        this.hospital = hospital;
-    }
-
-    public void run() {
+    public static void registarPaciente() {
         System.out.println("Novo Paciente:");
 
         Paciente novoPaciente = introduzDados();
-        apresentaDados(novoPaciente);
 
         if (Utils.confirma("Confirma os dados? (S/N)")) {
             if (hospital.adicionarPaciente(novoPaciente)) {
@@ -28,7 +23,7 @@ public class RegistarPaciente {
         }
     }
 
-    private Paciente introduzDados() {
+    private static Paciente introduzDados() {
         int id = Utils.readIntFromConsole("Introduza o id do paciente: ");
         String nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
         String sexo = Utils.readLineFromConsole("Introduza o sexo do paciente (M/F): ");
@@ -38,11 +33,7 @@ public class RegistarPaciente {
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
     }
 
-    private void apresentaDados(Paciente paciente) {
-        System.out.println("Paciente: " + paciente.toString());
-    }
-
-    private void introduzMedicoes(Paciente paciente) {
+    static void introduzMedicoes() {
         int idProfissional = Utils.readIntFromConsole("Introduza o ID do profissional: ");
         int id = Utils.readIntFromConsole("Introduza o id do paciente: ");
         Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
@@ -54,6 +45,8 @@ public class RegistarPaciente {
             System.out.println("Profissional de saúde não encontrado.");
             return;
         }
+        Paciente paciente = hospital.procurarPacienteID(id);
+
     }
 }
 

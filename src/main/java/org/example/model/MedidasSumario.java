@@ -11,7 +11,7 @@ public class MedidasSumario {
         this.lstMedicao = lstMedicao;
     }
 
-    public void calcularMedidasSumarioParaTodosPacientes() throws MedidaInvalidaException {
+    public static void calcularMedidasSumarioParaTodosPacientes() throws MedidaInvalidaException {
         for (Paciente paciente : Hospital.getLstPacientes()) {
             System.out.println("Paciente: " + paciente.getId());
             calcularMinimo(paciente);

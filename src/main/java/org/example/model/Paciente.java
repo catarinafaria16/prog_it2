@@ -62,7 +62,7 @@ public class Paciente extends Pessoa {
         }
         return null; // não encontrado
     }
-    public String classificarPaciente() {
+    public static String classificarPaciente() {
         FrequenciaCardiaca ultimaFc = getUltimaFrequenciaCardiaca();
         Temperatura ultimaTemp = getUltimaTemperatura();
         Saturacao ultimaSat = getUltimaSaturacaoOxigenio();
@@ -79,7 +79,7 @@ public class Paciente extends Pessoa {
         }
     }
     // Método que calcula o score de gravidade baseado nas últimas medições
-    public double calcularScoreGravidadeUltimasMedicoes() {
+    public static double calcularScoreGravidadeUltimasMedicoes() {
         FrequenciaCardiaca ultFc = getUltimaFrequenciaCardiaca();
         Temperatura ultTemp = getUltimaTemperatura();
         Saturacao ultSo = getUltimaSaturacaoOxigenio();

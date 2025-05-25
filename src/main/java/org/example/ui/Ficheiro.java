@@ -56,8 +56,7 @@ public class Ficheiro {
         return pacientes;
     }
 
-    public void criarArquivo() {
-        String caminhoArquivo = Utils.readLineFromConsole("Insira o caminho do arquivo onde deseja gravar os dados: ");
+    public static void criarArquivo(String caminhoArquivo) {
         for (Paciente p : Hospital.getLstPacientes()) {
             List<Medida> lstMedicao = p.getLstMedicao();
             ManipulacaoDados.gravarDadosEmArquivo(lstMedicao, caminhoArquivo);

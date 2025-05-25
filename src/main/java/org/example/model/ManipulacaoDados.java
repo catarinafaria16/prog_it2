@@ -3,13 +3,15 @@ package org.example.model;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 public class ManipulacaoDados {
 
-    public static void listarPacientesOrdenados(List<Paciente> lstPacientes) {
+    public static List listarPacientesOrdenados() {
+        List<Paciente> lstPacientes = Hospital.getLstPacientes();
         if (lstPacientes.isEmpty()) {
             System.out.println("Não há pacientes registrados.");
         } else {
@@ -26,15 +28,12 @@ public class ManipulacaoDados {
                     }
                 }
             });
-
-            System.out.println("Lista de Pacientes (ordenados por nome e data de nascimento):");
-            for (Paciente paciente : lstPacientes) {
-                System.out.println(paciente);
-            }
+            return lstPacientes;
         }
     }
 
-    public static void alterarSinaisVitais(List<Paciente> lstPacientes, double percentualAlteracao) {
+    public static void alterarSinaisVitais(double percentualAlteracao) {
+        List <Paciente> lstPacientes = Hospital.getLstPacientes();
         for (Paciente paciente : lstPacientes) {
             for (Medida medida : paciente.getLstMedicao()) {
                 if (medida instanceof FrequenciaCardiaca) {
@@ -56,7 +55,8 @@ public class ManipulacaoDados {
             }
         }
     }
-    public static double calcularPercentagemPacientesCriticos(List<Paciente> lstPacientes) {
+    public static double calcularPercentagemPacientesCriticos() {
+        List<Paciente> lstPacientes = Hospital.getLstPacientes();
         if (lstPacientes.isEmpty()) {
             return 0.0;
         }

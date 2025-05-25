@@ -47,7 +47,7 @@ public class MenuUI {
                     Hospital.visualizarPacientes();
                     break;
                 case 5:
-                    MedidasSumario.calcularMedidasSumarioParaTodosPacientes();
+                    System.out.println(MedidasSumario.calcularMedidasSumarioParaTodosPacientes());
                     break;
                 case 6:
                     List<Paciente> lstPacientes = ManipulacaoDados.listarPacientesOrdenados();

@@ -11,13 +11,21 @@ public class MedidasSumario {
         this.lstMedicao = lstMedicao;
     }
 
-    public static void calcularMedidasSumarioParaTodosPacientes() throws MedidaInvalidaException {
+    public static String calcularMedidasSumarioParaTodosPacientes() throws MedidaInvalidaException {
+        StringBuilder resultado = new StringBuilder();
         for (Paciente paciente : Hospital.getLstPacientes()) {
-            System.out.println("Paciente: " + paciente.getId());
             calcularMinimo(paciente);
             calcularMaximo(paciente);
             calcularMediaEDesvioPadrao(paciente);
+            resultado.append("Paciente: " + paciente.getId());
+            resultado.append("\n");
+            resultado.append(calcularMinimo(paciente));
+            resultado.append("\n");
+            resultado.append(calcularMaximo(paciente));
+            resultado.append("\n");
+            resultado.append(calcularMediaEDesvioPadrao(paciente));
         }
+        return resultado.toString();
     }
 
 
@@ -85,7 +93,7 @@ public class MedidasSumario {
                 throw new MedidaInvalidaException("Não há medições disponíveis.");
             }
         }
-        return "Valor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
+        return "\nValor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
     }
 
     public static String calcularMediaEDesvioPadrao(Paciente paciente) throws MedidaInvalidaException {
@@ -99,39 +107,40 @@ public class MedidasSumario {
         StringBuilder resultado = new StringBuilder();
 
         for (Medida medida : paciente.getLstMedicao()) {
-            double valor = 0;
-
             if (medida instanceof FrequenciaCardiaca) {
-                somaFc = somaFc + ((FrequenciaCardiaca) medida).getFrequencia();
-                somaQuadradosFc = somaQuadradosFc + ((FrequenciaCardiaca) medida).getFrequencia() * ((FrequenciaCardiaca) medida).getFrequencia();
+                FrequenciaCardiaca freq = (FrequenciaCardiaca) medida;
+                somaFc += freq.getFrequencia();
+                somaQuadradosFc += freq.getFrequencia() * freq.getFrequencia();
             } else if (medida instanceof Temperatura) {
-                somaTemp = somaTemp + ((Temperatura) medida).getTemperatura();
-                somaQuadradosTemp = somaQuadradosTemp + ((Temperatura) medida).getTemperatura() * ((Temperatura) medida).getTemperatura();
+                Temperatura temp = (Temperatura) medida;
+                somaTemp += temp.getTemperatura();
+                somaQuadradosTemp += temp.getTemperatura() * temp.getTemperatura();
             } else if (medida instanceof Saturacao) {
-                somaSo = somaSo + ((Saturacao) medida).getSaturacao();
-                somaQuadradosSo = somaQuadradosSo + ((Saturacao) medida).getSaturacao() * ((Saturacao) medida).getSaturacao();
+                Saturacao sat = (Saturacao) medida;
+                somaSo += sat.getSaturacao();
+                somaQuadradosSo += sat.getSaturacao() * sat.getSaturacao();
             }
             contador++;
         }
 
-        if (contador == 0) {
+        if (contador==0) {
             throw new MedidaInvalidaException("Não há medições disponíveis.");
         } else {
-            double mediaFc = somaFc / contador;
-            double varianciaFc = (somaQuadradosFc / contador) - (mediaFc * mediaFc);
+            double mediaFc = somaFc / (contador/3);
+            double varianciaFc = (somaQuadradosFc / (contador/3)) - (mediaFc * mediaFc);
             double desvioPadraoFc = Math.sqrt(varianciaFc);
-            resultado.append(String.format("Frequência Cardíaca - Média: %.2f, Desvio Padrão: %.2f%n", mediaFc, desvioPadraoFc));
-
-            double mediaTemp = somaTemp / contador;
-            double varianciaTemp = (somaQuadradosTemp / contador) - (mediaTemp * mediaTemp);
+            resultado.append(String.format("\nFrequência Cardíaca - Média: %.2f, Desvio Padrão: %.2f%n", mediaFc, desvioPadraoFc));
+            double mediaTemp = somaTemp / (contador/3);
+            double varianciaTemp = (somaQuadradosTemp / (contador/3)) - (mediaTemp * mediaTemp);
             double desvioPadraoTemp = Math.sqrt(varianciaTemp);
-            resultado.append(String.format("Temperatura - Média: %.2f, Desvio Padrão: %.2f%n", mediaTemp, desvioPadraoTemp));
-            double mediaSo = somaSo / contador;
-            double varianciaSo = (somaQuadradosSo / contador) - (mediaSo * mediaSo);
+            resultado.append(String.format("\nTemperatura - Média: %.2f, Desvio Padrão: %.2f%n", mediaTemp, desvioPadraoTemp));
+            double mediaSo = somaSo / (contador/3);
+            double varianciaSo = (somaQuadradosSo / (contador/3)) - (mediaSo * mediaSo);
             double desvioPadraoSo = Math.sqrt(varianciaSo);
-            resultado.append(String.format("Saturação de Oxigênio - Média: %.2f, Desvio Padrão: %.2f%n", mediaSo, desvioPadraoSo));
+            resultado.append(String.format("\nSaturação de Oxigênio - Média: %.2f, Desvio Padrão: %.2f%n", mediaSo, desvioPadraoSo));
         }
         return resultado.toString();
     }
-    }
+
+}
 

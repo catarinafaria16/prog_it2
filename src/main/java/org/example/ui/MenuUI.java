@@ -68,6 +68,7 @@ public class MenuUI {
                     break;
                 case 10:
                     Paciente.interpretarScoreGravidade();
+                    System.out.println(Paciente.interpretarScoreGravidade());
                     break;
                 case 11:
                     GraficoMedicoes.imprimirGrafico();

@@ -27,10 +27,10 @@ public class Data {
         return new Data(dia, mes, ano);
     }
 
-    public Data(int ano, int mes, int dia) {
-        this.ano = ano;
-        this.mes = mes;
+    public Data(int dia, int mes, int ano) {
         this.dia = dia;
+        this.mes = mes;
+        this.ano = ano;
     }
 
     public Data(Data data) {

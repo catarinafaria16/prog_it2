@@ -46,10 +46,10 @@ public abstract class Pessoa {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("\n");
-        sb.append("Id:").append(id);
-        sb.append(", Nome:'").append(nome).append('\'');
-        sb.append(", Sexo: ").append(sexo);
-        sb.append(", Data de Nascimento: ").append(dataNascimento);
+        sb.append("ID:").append(id).append(" ");;
+        sb.append(", NOME:").append(nome).append(" ");
+        sb.append(", SEXO: ").append(sexo).append(" ");;
+        sb.append(", DATA DE NASCIMENTO: ").append(dataNascimento).append(" ");;
         return sb.toString();
     }
 }

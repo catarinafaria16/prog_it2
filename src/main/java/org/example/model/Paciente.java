@@ -133,7 +133,7 @@ public class Paciente extends Pessoa {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(super.toString());
-        sb.append("Data de Internamento: ").append(dataInternamento);
+        sb.append("DATA DE INTERNAMENTO: ").append(dataInternamento);
         return sb.toString();
     }
 }

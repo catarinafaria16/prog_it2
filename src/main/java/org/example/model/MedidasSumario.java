@@ -21,7 +21,7 @@ public class MedidasSumario {
     }
 
 
-    public String calcularMinimo(Paciente paciente) throws MedidaInvalidaException {
+    public static String calcularMinimo(Paciente paciente) throws MedidaInvalidaException {
         double minFc = Double.MAX_VALUE;
         double minTemp = Double.MAX_VALUE;
         double minSo = Double.MAX_VALUE;
@@ -55,7 +55,7 @@ public class MedidasSumario {
         return "Valor mínimo de frequência cardíaca: " + minFc + "\nValor mínimo de temperatura: " + minTemp + "\nValor mínimo de saturação de oxigénio: " + minSo;
     }
 
-    public String calcularMaximo(Paciente paciente) throws MedidaInvalidaException {
+    public static String calcularMaximo(Paciente paciente) throws MedidaInvalidaException {
         double maxFc = Double.MIN_VALUE;
         double maxTemp = Double.MIN_VALUE;
         double maxSo = Double.MIN_VALUE;
@@ -88,7 +88,7 @@ public class MedidasSumario {
         return "Valor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
     }
 
-    public String calcularMediaEDesvioPadrao(Paciente paciente) throws MedidaInvalidaException {
+    public static String calcularMediaEDesvioPadrao(Paciente paciente) throws MedidaInvalidaException {
         double somaFc = 0;
         double somaQuadradosFc = 0;
         double somaTemp = 0;

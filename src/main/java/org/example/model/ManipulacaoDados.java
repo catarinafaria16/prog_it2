@@ -28,8 +28,8 @@ public class ManipulacaoDados {
                     }
                 }
             });
-            return lstPacientes;
         }
+        return lstPacientes;
     }
 
     public static void alterarSinaisVitais(double percentualAlteracao) {

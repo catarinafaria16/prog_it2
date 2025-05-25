@@ -7,7 +7,7 @@ import org.example.utils.Data;
 
 public class Paciente extends Pessoa {
     private Data dataInternamento;
-    private List<Medida> lstMedicao;
+    private static List<Medida> lstMedicao;
 
     public Paciente(int id, String nome, String sexo, Data dataNascimento, Data dataInternamento) {
         super(id, nome, sexo, dataNascimento);
@@ -31,7 +31,7 @@ public class Paciente extends Pessoa {
     }
 
     // Método para obter a última medição de FrequenciaCardiaca
-    FrequenciaCardiaca getUltimaFrequenciaCardiaca() {
+    static FrequenciaCardiaca getUltimaFrequenciaCardiaca() {
         for (int i = lstMedicao.size() - 1; i >= 0; i--) {
             Medida m = lstMedicao.get(i);
             if (m instanceof FrequenciaCardiaca) {
@@ -42,7 +42,7 @@ public class Paciente extends Pessoa {
     }
 
     // Método para obter a última medição de Temperatura
-    Temperatura getUltimaTemperatura() {
+    static Temperatura getUltimaTemperatura() {
         for (int i = lstMedicao.size() - 1; i >= 0; i--) {
             Medida m = lstMedicao.get(i);
             if (m instanceof Temperatura) {
@@ -53,7 +53,7 @@ public class Paciente extends Pessoa {
     }
 
     // Método para obter a última medição de SaturacaoOxigenio
-    Saturacao getUltimaSaturacaoOxigenio() {
+    static Saturacao getUltimaSaturacaoOxigenio() {
         for (int i = lstMedicao.size() - 1; i >= 0; i--) {
             Medida m = lstMedicao.get(i);
             if (m instanceof Saturacao) {
@@ -96,20 +96,20 @@ public class Paciente extends Pessoa {
     }
 
     // Métodos de pontuação - mesmas regras já usadas antes
-    private int pontuarFrequenciaCardiaca(double fc) {
+    private static int pontuarFrequenciaCardiaca(double fc) {
         if (fc < 60) return 5;
         else if (fc <= 100) return 1;
         else if (fc <= 120) return 3;
         else return 5;
     }
 
-    private int pontuarTemperatura(double temp) {
+    private static int pontuarTemperatura(double temp) {
         if (temp < 36) return 5;
         else if (temp <= 37.5) return 1;
         else if (temp <= 39) return 3;
         else return 5;
     }
-    private int pontuarSaturacao(double spo2) {
+    private static int pontuarSaturacao(double spo2) {
         if (spo2 >= 95) return 1;
         else if (spo2 >= 90) return 3;
         else return 5;

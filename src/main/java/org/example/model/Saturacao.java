@@ -6,9 +6,9 @@ import org.example.utils.Data;
 public class Saturacao extends Medida {
     private double saturacao;
 
-    public Saturacao(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude, double saturacao) {
+    public Saturacao(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude, double saturacao) throws MedidaInvalidaException {
         super(dataRegisto, paciente, profissionalSaude);
-        this.saturacao = saturacao;
+        setSaturacao(saturacao);
     }
     public Saturacao(double saturacao) {
         super(saturacao);

@@ -1,5 +1,6 @@
 package org.example.ui;
 
+import org.example.exception.MedidaInvalidaException;
 import org.example.model.*;
 import org.example.utils.Data;
 import org.example.utils.Utils;
@@ -34,7 +35,7 @@ public class RegistarPaciente {
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
     }
 
-    static void introduzMedicoes() {
+    static void introduzMedicoes() throws MedidaInvalidaException {
         int idProfissional = Utils.readIntFromConsole("Introduza o ID do profissional: ");
         int id = Utils.readIntFromConsole("Introduza o ID do paciente: ");
         Data dataRegisto = Utils.readDateFromConsole("Introduza a data da medição (dd-MM-yyyy): ");
@@ -46,9 +47,12 @@ public class RegistarPaciente {
         Medida medidaTemperatura = Temperatura.fromDouble(temperatura);
         Medida medidaSaturacao = Saturacao.fromDouble(saturacao);
         Paciente paciente = hospital.procurarPacienteID(id);
-        Hospital.adicionarMedidaAoPaciente(id,medidaFrequencia,idProfissional);
-        Hospital.adicionarMedidaAoPaciente(id,medidaTemperatura,idProfissional);
-        Hospital.adicionarMedidaAoPaciente(id,medidaSaturacao,idProfissional);
+        Hospital.adicionarFrequenciaCardiaca(dataRegisto, frequencia, paciente, profissional);
+        Hospital.adicionarTemperatura(dataRegisto, temperatura, paciente, profissional);
+        Hospital.adicionarSaturacao(dataRegisto,saturacao, paciente, profissional);
+        for (Medida m :paciente.getLstMedicao()){
+            System.out.println(m);
+        }
     }
 }
 

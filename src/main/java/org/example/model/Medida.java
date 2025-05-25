@@ -8,13 +8,16 @@ public class Medida {
     private Paciente paciente;
     private ProfissionalSaude profissionalSaude;
     private double valor;
+    private double medida;
 
-    public Medida(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude) {
+    public Medida(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
         this.dataRegisto = dataRegisto;
         this.paciente = paciente;
-        this.profissionalSaude = profissionalSaude;
+        setProfissional(profissionalSaude);
     }
-
+    public static Medida fromDouble(double medida) throws MedidaInvalidaException {
+        return new Medida(medida);
+    }
     public Medida(double medida) {
         this.valor = valor;
     }
@@ -37,7 +40,11 @@ public class Medida {
     }
 
     public void setProfissional(ProfissionalSaude profissional) {
+        this.profissionalSaude = profissional;
+    }
 
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
     }
 
 }

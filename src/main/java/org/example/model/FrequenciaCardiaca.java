@@ -10,15 +10,15 @@ public class FrequenciaCardiaca extends Medida {
         setFrequencia(frequencia);
     }
 
-    public FrequenciaCardiaca(double frequencia) {
+    public FrequenciaCardiaca(double frequencia) throws MedidaInvalidaException {
         super(frequencia);
         if (frequencia <= 0) {
             throw new IllegalArgumentException("Frequência inválida.");
         }
-        this.frequencia = frequencia;
+        setFrequencia(frequencia);
     }
 
-    public static Medida fromDouble(double frequencia)  {
+    public static Medida fromDouble(double frequencia) throws MedidaInvalidaException {
     return new FrequenciaCardiaca(frequencia);
 }
 

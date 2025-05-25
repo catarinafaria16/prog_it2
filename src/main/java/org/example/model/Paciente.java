@@ -16,7 +16,8 @@ public class Paciente extends Pessoa {
     }
 
     public void adicionarMedida(Medida medida) {
-        lstMedicao.add(medida); // Adiciona uma nova medição à lista do paciente
+        lstMedicao.add(medida);
+        System.out.println("sdfghjkl");// Adiciona uma nova medição à lista do paciente
     }
     public List<Medida> getLstMedicao() {
         return lstMedicao; // Retorna a lista de medições do paciente

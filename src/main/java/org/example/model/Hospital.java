@@ -1,5 +1,8 @@
 package org.example.model;
 
+import org.example.exception.MedidaInvalidaException;
+import org.example.utils.Data;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,24 +26,20 @@ public class Hospital {
         }
         return false;
     }
-    public static void adicionarMedidaAoPaciente(int idPaciente, Medida medida, int idProfissional) {
-        ProfissionalSaude profissional = procurarProfissionalID(idProfissional);
 
-        for (Paciente paciente : lstPacientes) {
-            System.out.println("g");
-            if (paciente.getId() == idPaciente) {
-                // Associa o profissional à medição antes de adicionar
-                paciente.adicionarMedida(medida); // Adiciona a medição ao paciente correspondente
-
-            }
-            for (Medida m:paciente.getLstMedicao()) {
-                System.out.println(m);
-                System.out.println("m");
-            }
-        }
-
-        System.out.println("Paciente não encontrado.");
+    public static void adicionarFrequenciaCardiaca(Data dataRegisto, double frequencia, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
+        FrequenciaCardiaca medida = new FrequenciaCardiaca(dataRegisto, paciente, profissionalSaude, frequencia);
+        paciente.adicionarMedida(medida);
     }
+    public static void adicionarTemperatura(Data dataRegisto, double temperatura, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
+        Temperatura medida = new Temperatura(dataRegisto, paciente, profissionalSaude, temperatura);
+        paciente.adicionarMedida(medida);
+    }
+    public static void adicionarSaturacao(Data dataRegisto, double saturacao, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
+        Saturacao medida = new Saturacao(dataRegisto,paciente, profissionalSaude, saturacao);
+        paciente.adicionarMedida(medida);
+    }
+
     public static ProfissionalSaude procurarProfissionalID(int idProfissional) {
         for (ProfissionalSaude profissional : lstProfissionais) {
             if (profissional.getId() == idProfissional) {

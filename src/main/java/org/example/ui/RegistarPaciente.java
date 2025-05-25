@@ -1,7 +1,13 @@
 package org.example.ui;
 
 import org.example.exception.MedidaInvalidaException;
-import org.example.model.*;
+import org.example.model.FrequenciaCardiaca;
+import org.example.model.Hospital;
+import org.example.model.Medida;
+import org.example.model.Paciente;
+import org.example.model.ProfissionalSaude;
+import org.example.model.Saturacao;
+import org.example.model.Temperatura;
 import org.example.utils.Data;
 import org.example.utils.Utils;
 
@@ -30,8 +36,7 @@ public class RegistarPaciente {
         String nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
         String sexo = Utils.readLineFromConsole("Introduza o sexo do paciente (M/F): ");
         Data dataNascimento = Utils.readDateFromConsole("Introduza a data de nascimento (dd-MM-yyyy): ");
-        Data dataInternamento = new Data(); // Pode ser a data atual ou outra lógica
-
+        Data dataInternamento = Utils.readDateFromConsole("Introduza a data de internamento (dd-MM-yyyy): ");
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
     }
 

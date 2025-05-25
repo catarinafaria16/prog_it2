@@ -50,8 +50,7 @@ public class Utils {
                 int dia = Integer.parseInt(arr[0]);
                 int mes = Integer.parseInt(arr[1]);
                 int ano = Integer.parseInt(arr[2]);
-                return new Data(ano, mes, dia);
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                return new Data(dia, mes, ano);            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
                 System.out.println("--> " + ex.toString());
             }
         } while (true);

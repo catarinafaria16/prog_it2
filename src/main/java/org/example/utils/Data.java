@@ -1,9 +1,5 @@
 package org.example.utils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Data {
 
     private int ano;
@@ -64,8 +60,7 @@ public class Data {
     }
 
     public String toString() {
-        return this.determinarDiaDaSemana() + ", " + this.dia + " de " + nomeMes[mes] + " de " + ano;
-    }
+        return this.determinarDiaDaSemana() + ", " + String.format("%02d", this.dia) + " de " + nomeMes[this.mes] + " de " + this.ano;    }
 
     public String toAnoMesDiaString() {
         return String.format("%04d/%02d/%02d", ano, mes, dia);

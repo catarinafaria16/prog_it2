@@ -33,8 +33,20 @@ public class RegistarPaciente {
 
     private static Paciente introduzDados() {
         int id = Utils.readIntFromConsole("Introduza o ID do paciente: ");
-        String nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
-        String sexo = Utils.readLineFromConsole("Introduza o sexo do paciente (M/F): ");
+        String nome;
+        do {
+            nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
+            if (!nome.matches("[a-zA-ZÀ-ÿ\\s]+")) {
+                System.out.println("Nome inválido. Use apenas letras e espaços.");
+            }
+        } while (!nome.matches("[a-zA-ZÀ-ÿ\\s]+"));
+        String sexo;
+        do {
+            sexo = Utils.readLineFromConsole("Introduza o sexo do paciente (M/F): ").toUpperCase();
+            if (!sexo.equals("M") && !sexo.equals("F")) {
+                System.out.println("Sexo inválido. Por favor introduza M ou F.");
+            }
+        } while (!sexo.equals("M") && !sexo.equals("F"));
         Data dataNascimento = Utils.readDateFromConsole("Introduza a data de nascimento (dd-MM-yyyy): ");
         Data dataInternamento = Utils.readDateFromConsole("Introduza a data de internamento (dd-MM-yyyy): ");
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
@@ -60,4 +72,3 @@ public class RegistarPaciente {
         }
     }
 }
-

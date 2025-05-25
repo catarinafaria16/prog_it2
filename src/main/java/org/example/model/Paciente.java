@@ -31,7 +31,7 @@ public class Paciente extends Pessoa {
     }
 
     // Método para obter a última medição de FrequenciaCardiaca
-    private FrequenciaCardiaca getUltimaFrequenciaCardiaca() {
+    FrequenciaCardiaca getUltimaFrequenciaCardiaca() {
         for (int i = lstMedicao.size() - 1; i >= 0; i--) {
             Medida m = lstMedicao.get(i);
             if (m instanceof FrequenciaCardiaca) {
@@ -42,7 +42,7 @@ public class Paciente extends Pessoa {
     }
 
     // Método para obter a última medição de Temperatura
-    private Temperatura getUltimaTemperatura() {
+    Temperatura getUltimaTemperatura() {
         for (int i = lstMedicao.size() - 1; i >= 0; i--) {
             Medida m = lstMedicao.get(i);
             if (m instanceof Temperatura) {
@@ -53,7 +53,7 @@ public class Paciente extends Pessoa {
     }
 
     // Método para obter a última medição de SaturacaoOxigenio
-    private Saturacao getUltimaSaturacaoOxigenio() {
+    Saturacao getUltimaSaturacaoOxigenio() {
         for (int i = lstMedicao.size() - 1; i >= 0; i--) {
             Medida m = lstMedicao.get(i);
             if (m instanceof Saturacao) {

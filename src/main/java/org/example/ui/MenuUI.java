@@ -15,7 +15,7 @@ public class MenuUI {
         hospital.getLstPacientes().forEach(paciente -> {
             System.out.println("\nPaciente: " + paciente.getNome());
             paciente.getLstMedicao().forEach(medida -> {
-                org.example.model.GraficoMedicoes.imprimirBarras(medida);
+                org.example.model.GraficoMedicoes.imprimirBarras();
             });
         });
     }
@@ -41,10 +41,8 @@ public class MenuUI {
                     mostrarGraficos();
                     break;
                 case 3:
-                    calcularScore(scanner);
                     break;
                 case 4:
-                    calcularPercentagemPacientesCriticos();
                     break;
                 case 0:
                     System.out.println("A sair...");
@@ -53,30 +51,5 @@ public class MenuUI {
                     System.out.println("Opção inválida.");
             }
         } while (opcao != 0);
-    }
-
-    private void calcularScore(Scanner scanner) {
-        System.out.print("ID do paciente: ");
-        int id = scanner.nextInt();
-        var paciente = hospital.procurarPacienteID(id);
-        if (paciente == null) {
-            System.out.println("Paciente não encontrado.");
-            return;
-        }
-
-        double fc = 0, temp = 0, spo2 = 0;
-        for (var m : paciente.getLstMedicao()) {
-            if (m instanceof org.example.model.FrequenciaCardiaca f)
-                fc = f.getFrequencia();
-            else if (m instanceof org.example.model.Temperatura t)
-                temp = t.getTemperatura();
-            else if (m instanceof org.example.model.Saturacao s)
-                spo2 = s.getSaturacao();
-        }
-    }
-
-    private void calcularPercentagemPacientesCriticos() {
-        double percentagem = org.example.model.ManipulacaoDados.calcularPercentagemPacientesCriticos(Hospital.getLstPacientes());
-        System.out.printf("Percentagem de pacientes críticos: %.2f%%%n", percentagem);
     }
 }

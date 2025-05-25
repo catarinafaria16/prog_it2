@@ -1,5 +1,8 @@
 package org.example.model;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -66,5 +69,16 @@ public class ManipulacaoDados {
             }
         }
         return (double) pacientesCriticos / totalPacientes * 100;
+    }
+    public static void gravarDadosEmArquivo(List<Medida> lstMedidas, String caminhoArquivo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
+            for (Medida medida : lstMedidas) {
+                writer.write(medida.toString());
+                writer.newLine(); // Adiciona uma nova linha após cada medida
+            }
+            System.out.println("Dados gravados com sucesso em " + caminhoArquivo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

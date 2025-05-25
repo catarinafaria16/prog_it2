@@ -2,6 +2,7 @@ package org.example.ui;
 
 import org.example.model.*;
 import org.example.utils.Data;
+import org.example.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,10 +10,13 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+
 
 
 public class Ficheiro {
-    public static List<Paciente> lerPacientes(String caminhoFicheiro) {
+    public static List<Paciente> lerFicheiro(String caminhoFicheiro) {
         List<Paciente> pacientes = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoFicheiro))) {
@@ -35,7 +39,7 @@ public class Ficheiro {
                     Paciente paciente = new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
 
                     // Cria o profissional de saúde com os dados lidos
-                    ProfissionalSaude profissional = new ProfissionalSaude(idProfissional, nomeProfissional,null,null, especialidadeProfissional);
+                    ProfissionalSaude profissional = new ProfissionalSaude(idProfissional, nomeProfissional, null, null, especialidadeProfissional);
 
                     // Adiciona as medições, se necessário
                     paciente.adicionarMedida(new FrequenciaCardiaca(dataNascimento, paciente, profissional, Double.parseDouble(dados[8].trim())));
@@ -50,5 +54,13 @@ public class Ficheiro {
         }
 
         return pacientes;
+    }
+
+    public void criarArquivo() {
+        String caminhoArquivo = Utils.readLineFromConsole("Insira o caminho do arquivo onde deseja gravar os dados: ");
+        for (Paciente p : Hospital.getLstPacientes()) {
+            List<Medida> lstMedicao = p.getLstMedicao();
+            ManipulacaoDados.gravarDadosEmArquivo(lstMedicao, caminhoArquivo);
+        }
     }
 }

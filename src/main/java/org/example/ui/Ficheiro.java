@@ -1,5 +1,6 @@
 package org.example.ui;
 
+import org.example.exception.MedidaInvalidaException;
 import org.example.model.*;
 import org.example.utils.Data;
 import org.example.utils.Utils;
@@ -51,6 +52,8 @@ public class Ficheiro {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (MedidaInvalidaException e) {
+            throw new RuntimeException(e);
         }
 
         return pacientes;

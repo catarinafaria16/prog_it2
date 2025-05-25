@@ -1,16 +1,22 @@
 package org.example.model;
 
+import org.example.exception.MedidaInvalidaException;
 import org.example.utils.Data;
 
 public class Medida {
     private Data dataRegisto;
     private Paciente paciente;
     private ProfissionalSaude profissionalSaude;
+    private double valor;
 
     public Medida(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude) {
         this.dataRegisto = dataRegisto;
         this.paciente = paciente;
         this.profissionalSaude = profissionalSaude;
+    }
+
+    public Medida(double medida) {
+        this.valor = valor;
     }
 
     public Data getDataRegisto() {
@@ -20,6 +26,7 @@ public class Medida {
     public void setDataRegisto(Data dataRegisto) {
         this.dataRegisto = dataRegisto;
     }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("\n");
@@ -32,4 +39,5 @@ public class Medida {
     public void setProfissional(ProfissionalSaude profissional) {
 
     }
+
 }

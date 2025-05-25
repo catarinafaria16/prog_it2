@@ -80,19 +80,23 @@ public class Paciente extends Pessoa {
     }
     // Método que calcula o score de gravidade baseado nas últimas medições
     public static double calcularScoreGravidadeUltimasMedicoes() {
-        FrequenciaCardiaca ultFc = getUltimaFrequenciaCardiaca();
-        Temperatura ultTemp = getUltimaTemperatura();
-        Saturacao ultSo = getUltimaSaturacaoOxigenio();
+        int fcScore=0;
+        int tempScore=0;
+        int satScore=0;
+        for (Paciente p: Hospital.getLstPacientes()) {
+            FrequenciaCardiaca ultFc = getUltimaFrequenciaCardiaca();
+            Temperatura ultTemp = getUltimaTemperatura();
+            Saturacao ultSo = getUltimaSaturacaoOxigenio();
 
-        if (ultFc == null || ultTemp == null || ultSo == null) {
-            throw new IllegalStateException("Medições incompletas para cálculo do score de gravidade.");
+            if (ultFc == null || ultTemp == null || ultSo == null) {
+                throw new IllegalStateException("Medições incompletas para cálculo do score de gravidade.");
+            }
+
+            fcScore = pontuarFrequenciaCardiaca(ultFc.getFrequencia());
+            tempScore = pontuarTemperatura(ultTemp.getTemperatura());
+            satScore = pontuarSaturacao(ultSo.getSaturacao());
         }
-
-        int fcScore = pontuarFrequenciaCardiaca(ultFc.getFrequencia());
-        int tempScore = pontuarTemperatura(ultTemp.getTemperatura());
-        int spo2Score = pontuarSaturacao(ultSo.getSaturacao());
-
-        return fcScore * 0.3 + tempScore * 0.4 + spo2Score * 0.3;
+        return fcScore * 0.3 + tempScore * 0.4 + satScore * 0.3;
     }
 
     // Métodos de pontuação - mesmas regras já usadas antes
@@ -114,7 +118,8 @@ public class Paciente extends Pessoa {
         else if (spo2 >= 90) return 3;
         else return 5;
     }
-    public String interpretarScoreGravidade(double score) {
+    public static String interpretarScoreGravidade() {
+        double score=calcularScoreGravidadeUltimasMedicoes();
         if (score >= 1 && score <= 2) {
             return "Gravidade Baixa";
         } else if (score > 2 && score <= 3.5) {

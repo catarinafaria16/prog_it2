@@ -1,9 +1,8 @@
 package org.example.model;
 
-import com.sun.jdi.DoubleValue;
-
 public class GraficoMedicoes {
-        public static void imprimirBarras() {
+    public static void imprimirGrafico() {
+        try {
             for (Paciente paciente : Hospital.getLstPacientes()) {
                 FrequenciaCardiaca ultimaFc = paciente.getUltimaFrequenciaCardiaca();
                 if (ultimaFc != null) {
@@ -29,13 +28,24 @@ public class GraficoMedicoes {
                     System.out.println("Nenhuma medição de saturação encontrada para o paciente " + paciente.getNome());
                 }
             }
+        } catch (NullPointerException e) {
+            System.out.println("Erro ao imprimir barras: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro inesperado ao imprimir barras: " + e.getMessage());
         }
+    }
 
-        private static void imprimirBarra(double valor, double escala) {
+    private static void imprimirBarra(double valor, double escala) {
+        try {
             int estrelas = (int) Math.round(valor / escala);
             for (int i = 0; i < estrelas; i++) {
                 System.out.print("*");
             }
             System.out.println();
+        } catch (ArithmeticException e) {
+            System.out.println("Erro ao calcular estrelas: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Erro inesperado ao imprimir barra: " + e.getMessage());
         }
     }
+}

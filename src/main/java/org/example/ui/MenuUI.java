@@ -13,15 +13,6 @@ public class MenuUI {
         this.hospital = hospital;
     }
 
-    private void mostrarGraficos() {
-        hospital.getLstPacientes().forEach(paciente -> {
-            System.out.println("\nPaciente: " + paciente.getNome());
-            paciente.getLstMedicao().forEach(medida -> {
-                org.example.model.GraficoMedicoes.imprimirBarras();
-            });
-        });
-    }
-
     public void run() throws MedidaInvalidaException {
         int opcao;
         do {
@@ -34,11 +25,11 @@ public class MenuUI {
             System.out.println("6. Visualizar Lista de Pacientes Ordenada por Ordem Alfabética");
             System.out.println("7. Alteração Percentual dos Sinais Vitais");
             System.out.println("8. Classificar Pacientes com Base na Última Medição");
-            System.out.println("8. Percentagem de Pacientes em Situação Crítica");
-            System.out.println("9. Visualização de Score de Gravidade");
-            System.out.println("10. Imprimir Gráficos de Barras");
-            System.out.println("11. Registar Dados no Ficheiro de Texto");
-            System.out.println("12. Sair");
+            System.out.println("9. Percentagem de Pacientes em Situação Crítica");
+            System.out.println("10. Visualização de Score de Gravidade");
+            System.out.println("11. Imprimir Gráficos de Barras");
+            System.out.println("12. Registar Dados no Ficheiro de Texto");
+            System.out.println("13. Sair");
             opcao = Utils.readIntFromConsole("Escolha uma opção: ");
 
             switch (opcao) {
@@ -76,10 +67,10 @@ public class MenuUI {
                     System.out.println("\nPercentagem de pacientes críticos: " + ManipulacaoDados.calcularPercentagemPacientesCriticos());
                     break;
                 case 10:
-                    Paciente.calcularScoreGravidadeUltimasMedicoes();
+                    Paciente.interpretarScoreGravidade();
                     break;
                 case 11:
-                    GraficoMedicoes.imprimirBarras();
+                    GraficoMedicoes.imprimirGrafico();
                     break;
                 case 12:
                     String caminhoArquivo = Utils.readLineFromConsole("Insira o caminho do arquivo onde deseja gravar os dados: ");

@@ -21,9 +21,9 @@ public class Data {
 
     public static Data fromString(String dataString) {
         String[] partes = dataString.split("-");
-        int dia = Integer.parseInt(partes[2]);
+        int dia = Integer.parseInt(partes[0]);
         int mes = Integer.parseInt(partes[1]);
-        int ano = Integer.parseInt(partes[0]);
+        int ano = Integer.parseInt(partes[2]);
         return new Data(dia, mes, ano);
     }
 

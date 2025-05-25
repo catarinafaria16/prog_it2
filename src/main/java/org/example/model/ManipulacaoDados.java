@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.example.exception.MedidaInvalidaException;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,7 +15,7 @@ public class ManipulacaoDados {
     public static List listarPacientesOrdenados() {
         List<Paciente> lstPacientes = Hospital.getLstPacientes();
         if (lstPacientes.isEmpty()) {
-            System.out.println("Não há pacientes registrados.");
+            System.out.println("Não há pacientes registados.");
         } else {
             // Ordenar a lista de pacientes pelo nome e, em caso de empate, pela data de nascimento
             Collections.sort(lstPacientes, new Comparator<Paciente>() {
@@ -32,7 +34,7 @@ public class ManipulacaoDados {
         return lstPacientes;
     }
 
-    public static void alterarSinaisVitais(double percentualAlteracao) {
+    public static void alterarSinaisVitais(double percentualAlteracao) throws MedidaInvalidaException {
         List <Paciente> lstPacientes = Hospital.getLstPacientes();
         for (Paciente paciente : lstPacientes) {
             for (Medida medida : paciente.getLstMedicao()) {

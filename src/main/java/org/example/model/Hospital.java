@@ -8,7 +8,7 @@ import java.util.List;
 public class Hospital {
     private String nome;
     private static List<Paciente> lstPacientes;
-    private final List<ProfissionalSaude> lstProfissionais;
+    private static List<ProfissionalSaude> lstProfissionais;
 
     public Hospital(String nome) {
         this.nome = nome;
@@ -23,23 +23,25 @@ public class Hospital {
         }
         return false;
     }
-    public void adicionarMedidaAoPaciente(int idPaciente, Medida medida, int idProfissional) {
+    public static void adicionarMedidaAoPaciente(int idPaciente, Medida medida, int idProfissional) {
         ProfissionalSaude profissional = procurarProfissionalID(idProfissional);
-        if (profissional == null) {
-            System.out.println("Profissional de saúde não encontrado.");
-            return;
-        }
+
         for (Paciente paciente : lstPacientes) {
+            System.out.println("g");
             if (paciente.getId() == idPaciente) {
                 // Associa o profissional à medição antes de adicionar
-                medida.setProfissional(profissional);
                 paciente.adicionarMedida(medida); // Adiciona a medição ao paciente correspondente
-                return;
+
+            }
+            for (Medida m:paciente.getLstMedicao()) {
+                System.out.println(m);
+                System.out.println("m");
             }
         }
+
         System.out.println("Paciente não encontrado.");
     }
-    public ProfissionalSaude procurarProfissionalID(int idProfissional) {
+    public static ProfissionalSaude procurarProfissionalID(int idProfissional) {
         for (ProfissionalSaude profissional : lstProfissionais) {
             if (profissional.getId() == idProfissional) {
                 return profissional;

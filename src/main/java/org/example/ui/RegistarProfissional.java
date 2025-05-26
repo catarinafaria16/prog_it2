@@ -9,10 +9,10 @@ public class RegistarProfissional {
     protected static void registarProfissional() {
         System.out.println("Novo Profissional:");
         int id = Utils.readIntFromConsole("Introduza o ID do profissional: ");
-        String nome = Utils.readLineFromConsole("Introduza o nome do profissional: ");
+        String nome = Utils.readNomeProFromConsole("Introduza o nome do profissional: ");
         String sexo = Utils.readSexoFromConsole("Introduza o sexo do profissional (M/F): ");
         Data dataNascimento = Utils.readDateFromConsole("Introduza a data de nascimento do profissional (dd-MM-yyyy): ");
-        String especialidade = Utils.readLineFromConsole("Introduza o especialidade do profissional: ");
+        String especialidade = Utils.readNomeEspFromConsole("Introduza o especialidade do profissional: ");
         Hospital.getLstProfissionais().add(new ProfissionalSaude(id, nome, sexo, dataNascimento, especialidade));
     }
 }

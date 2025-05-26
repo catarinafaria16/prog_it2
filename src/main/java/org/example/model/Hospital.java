@@ -1,14 +1,11 @@
 package org.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.exception.MedidaInvalidaException;
 import org.example.interfaces.IHospital;
 import org.example.utils.Data;
-import org.example.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class Hospital implements IHospital {
     private final String hospital;
@@ -30,7 +27,14 @@ public class Hospital implements IHospital {
         return false;
     }
 
-
+    public boolean adicionarProfissionalSaude(ProfissionalSaude profissional) {
+        if (!lstProfissionais.contains(profissional)) {
+            lstProfissionais.add(profissional);
+            return true;
+        }
+        return false;
+    }
+    
     public static void adicionarFrequenciaCardiaca(Data dataRegisto, double frequencia, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
         FrequenciaCardiaca medida = new FrequenciaCardiaca(dataRegisto, paciente, profissionalSaude, frequencia);
         paciente.adicionarMedida(medida);

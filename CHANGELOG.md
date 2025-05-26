@@ -2,6 +2,44 @@
 
 Este ficheiro descreve, de forma resumida e percetível, o propósito de cada página (classe) principal do projeto, para facilitar a compreensão do sistema.
 
+## Alterações recentes (maio 2025)
+
+- Corrigido o construtor de `FrequenciaCardiaca` para lançar sempre `MedidaInvalidaException` em vez de `IllegalArgumentException` para valores inválidos.
+- Corrigido o teste `FrequenciaCardiacaTest` para alinhar com a exceção correta.
+- Corrigido o teste `MedidasSumarioTest` para esperar a exceção `MedidaInvalidaException` quando não existem medições.
+- Limpeza e atualização do `pom.xml`:
+  - Removidas dependências duplicadas e antigas do JUnit.
+  - Mantida apenas a dependência `junit-jupiter` (JUnit 5.10.2).
+  - Garantida configuração correta do plugin `maven-surefire-plugin` (3.2.5).
+- Todos os testes unitários foram movidos para `src/test/java/org/example/model/` e estão a ser executados corretamente.
+- Ambiente Maven/JUnit validado e funcional para desenvolvimento e testes.
+
+## Detalhes e Explicações das Alterações Recentes
+
+### 1. Correção do Construtor de FrequenciaCardiaca
+- O construtor `FrequenciaCardiaca(double frequencia)` lançava `IllegalArgumentException` para valores inválidos. Agora lança sempre `MedidaInvalidaException`, garantindo consistência com o resto do sistema e com os testes unitários.
+- **Motivo:** Os testes esperam sempre a exceção personalizada do domínio (`MedidaInvalidaException`) para facilitar o tratamento de erros clínicos.
+
+### 2. Ajuste dos Testes Unitários
+- O teste `FrequenciaCardiacaTest.testCriarFrequenciaCardiacaInvalida` foi ajustado para esperar a exceção correta.
+- O teste `MedidasSumarioTest.testCalcularMedidasSumarioParaTodosPacientesSemMedidas` foi ajustado para esperar a exceção `MedidaInvalidaException` quando não existem medições.
+- **Motivo:** Garantir que os testes refletem o comportamento real do código e que o tratamento de erros é validado.
+
+### 3. Limpeza e Atualização do pom.xml
+- Removidas dependências antigas e duplicadas do JUnit (JUnit 4 e versões RELEASE).
+- Mantida apenas a dependência `junit-jupiter` (JUnit 5.10.2), que é a versão recomendada para projetos modernos.
+- Adicionado bloco `<build>` com o plugin `maven-surefire-plugin` (3.2.5) para garantir compatibilidade total com JUnit 5.
+- **Motivo:** Evitar conflitos de versões, garantir builds estáveis e facilitar a manutenção futura.
+
+### 4. Organização dos Testes
+- Todos os testes unitários foram movidos para `src/test/java/org/example/model/`.
+- Pastas antigas e duplicadas foram removidas.
+- **Motivo:** Seguir as boas práticas de projetos Maven/Java, garantir que o Maven encontra e executa todos os testes automaticamente.
+
+### 5. Ambiente Validado
+- Após estas alterações, todos os testes unitários passam (exceto se o código de domínio lançar exceções esperadas).
+- O ambiente está pronto para desenvolvimento, testes e integração contínua.
+
 ## src/main/java/org/example/ui/
 
 - **Main.java**

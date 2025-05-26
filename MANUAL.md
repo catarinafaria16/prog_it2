@@ -56,6 +56,34 @@ A aplicação permite gerir um hospital, incluindo o registo de pacientes e prof
 - Em caso de erro nas medições, é lançada uma exceção específica (`MedidaInvalidaException`).
 - As operações de leitura/escrita em ficheiro permitem guardar e recuperar o estado do hospital.
 
+## 6. Notas sobre Testes e Manutenção
+
+- O projeto utiliza **JUnit 5 (Jupiter)** para todos os testes unitários.
+- Todos os testes estão localizados em `src/test/java/org/example/model/`.
+- O ficheiro `pom.xml` foi limpo e atualizado para garantir compatibilidade total com Maven e JUnit 5.
+- Se adicionares novos testes, garante que lançam as exceções corretas (`MedidaInvalidaException` para medições inválidas).
+- Para correr os testes, basta executar:
+
+```sh
+mvn clean test
+```
+
+- Se algum teste falhar, verifica se o comportamento do código e dos testes está alinhado (exceções, mensagens, etc).
+
+## 7. Detalhes e Explicações das Alterações Recentes
+
+### Correção de Exceções e Testes
+- O construtor de `FrequenciaCardiaca` lança agora sempre `MedidaInvalidaException` para valores inválidos, garantindo uniformidade no tratamento de erros clínicos.
+- Os testes unitários foram ajustados para esperar as exceções corretas, validando o comportamento esperado do sistema.
+
+### Limpeza e Organização do Projeto
+- O ficheiro `pom.xml` foi limpo de dependências antigas e duplicadas, ficando apenas com JUnit Jupiter (JUnit 5) e o plugin surefire atualizado.
+- Todos os testes unitários estão organizados em `src/test/java/org/example/model/`, seguindo as melhores práticas de projetos Maven/Java.
+
+### Recomendações para Desenvolvimento Futuro
+- Sempre que adicionares novas funcionalidades, cria testes unitários na estrutura correta e garante que lançam exceções do domínio quando apropriado.
+- Mantém o `pom.xml` atualizado e sem dependências desnecessárias para evitar conflitos e facilitar a manutenção.
+
 ---
 
 Este manual serve como guia rápido para qualquer utilizador compreender e operar a aplicação hospitalar.

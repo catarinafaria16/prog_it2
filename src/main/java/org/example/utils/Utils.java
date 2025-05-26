@@ -106,4 +106,15 @@ public class Utils {
         } while (!sexo.equalsIgnoreCase("M") && !sexo.equalsIgnoreCase("F"));
         return sexo;
     }
+
+    public static String readNomeFromConsole(String strtPrompt) { 
+        String nome;
+        do {
+            nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
+            if (!nome.matches("[a-zA-ZÀ-ÿ\\s]+")) {
+                System.out.println("Nome inválido. Use apenas letras e espaços.");
+            }
+        } while (!nome.matches("[a-zA-ZÀ-ÿ\\s]+"));
+        return nome;
+    }
 }

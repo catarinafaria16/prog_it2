@@ -3,6 +3,8 @@ package org.example.ui;
 import org.example.exception.MedidaInvalidaException;
 import org.example.model.*;
 import org.example.utils.Utils;
+
+import java.sql.SQLOutput;
 import java.util.List;
 
 /**
@@ -73,6 +75,7 @@ public class MenuUI {
                     break;
                 case 12:
                     GraficoMedicoes.imprimirGrafico();
+                    System.out.println("Legenda:\nFrequencia cardiaca: *=10 bpm\nTemperatura *=2 ºC\nSaturação de Oxigénio *=5 %");
                     break;
                 case 13:
                     String caminhoArquivo = Utils.readLineFromConsole("Insira o caminho do arquivo onde deseja gravar os dados: ");

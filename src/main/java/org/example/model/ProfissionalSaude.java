@@ -40,6 +40,23 @@ public class ProfissionalSaude extends Pessoa {
      *
      * @return String com os dados do profissional.
      */
+    /**
+     * Obtém a especialidade médica do profissional.
+     *
+     * @return String com a especialidade.
+     */
+    public String getEspecialidade() {
+        return especialidade;
+    }
+
+    /**
+     * Altera a especialidade do profissional.
+     *
+     * @param especialidade Nova especialidade.
+     */
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(super.toString());

@@ -3,22 +3,25 @@ package org.example.ui;
 import org.example.exception.MedidaInvalidaException;
 import org.example.model.*;
 import org.example.utils.Data;
-import org.example.utils.Utils;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-
-
-
+/**
+ * Classe responsável pela manipulação de arquivos para leitura e gravação
+ * de dados relacionados a pacientes e medições.
+ */
 public class Ficheiro {
+
+    /**
+     * Lê os dados de um arquivo e cria objetos de pacientes e suas medições.
+     *
+     * @param caminhoFicheiro Caminho do arquivo a ser lido.
+     * @return Lista de pacientes lidos do arquivo.
+     */
     public static List<Paciente> lerFicheiro(String caminhoFicheiro) {
-        Hospital hospital;
         List<Paciente> pacientes = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoFicheiro))) {
@@ -53,14 +56,21 @@ public class Ficheiro {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Erro ao ler ficheiro: " + e.getMessage());
         } catch (MedidaInvalidaException e) {
-            throw new RuntimeException(e);
+            System.err.println("Erro ao processar medições: " + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.err.println("Erro ao converter valores numéricos: " + e.getMessage());
         }
 
         return pacientes;
     }
 
+    /**
+     * Cria um arquivo com os dados dos pacientes e suas medições.
+     *
+     * @param caminhoArquivo Caminho do arquivo a ser criado.
+     */
     public static void criarArquivo(String caminhoArquivo) {
         for (Paciente p : Hospital.getLstPacientes()) {
             List<Medida> lstMedicao = p.getLstMedicao();

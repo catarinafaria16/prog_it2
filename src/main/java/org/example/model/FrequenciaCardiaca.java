@@ -37,7 +37,7 @@ public class FrequenciaCardiaca extends Medida {
     public FrequenciaCardiaca(double frequencia) throws MedidaInvalidaException {
         super(frequencia);
         if (frequencia <= 0) {
-            throw new IllegalArgumentException("Frequência inválida.");
+            throw new MedidaInvalidaException("Frequência inválida.");
         }
         setFrequencia(frequencia);
     }

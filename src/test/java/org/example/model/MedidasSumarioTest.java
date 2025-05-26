@@ -11,10 +11,9 @@ import java.util.List;
 public class MedidasSumarioTest {
     @Test
     public void testCalcularMedidasSumarioParaTodosPacientesSemMedidas() {
-        // Não lança exceção se não houver medições
-        Assertions.assertDoesNotThrow(() -> {
-            String resultado = MedidasSumario.calcularMedidasSumarioParaTodosPacientes();
-            Assertions.assertNotNull(resultado);
+        // Espera que seja lançada MedidaInvalidaException se não houver medições
+        Assertions.assertThrows(MedidaInvalidaException.class, () -> {
+            MedidasSumario.calcularMedidasSumarioParaTodosPacientes();
         });
     }
 }

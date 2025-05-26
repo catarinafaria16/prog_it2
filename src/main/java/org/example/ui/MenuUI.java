@@ -72,8 +72,7 @@ public class MenuUI {
                     System.out.println("\nPercentagem de pacientes críticos: " + ManipulacaoDados.calcularPercentagemPacientesCriticos());
                     break;
                 case 11:
-                    Paciente.interpretarScoreGravidade();
-                    System.out.println(Paciente.interpretarScoreGravidade());
+                    System.out.println(Paciente.stringScoreGravidade());
                     break;
                 case 12:
                     GraficoMedicoes.imprimirGrafico();

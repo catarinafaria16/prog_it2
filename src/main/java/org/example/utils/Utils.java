@@ -3,8 +3,16 @@ package org.example.utils;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.List;
-
+/**
+ * Classe utilitária para leitura e validação de dados inseridos via consola.
+ */
 public class Utils {
+    /**
+     * Lê uma linha de texto da consola.
+     *
+     * @param strPrompt Texto a exibir ao utilizador.
+     * @return String inserida pelo utilizador.
+     */
     static public String readLineFromConsole(String strPrompt) {
         try {
             System.out.println(strPrompt);
@@ -16,7 +24,12 @@ public class Utils {
             return null;
         }
     }
-
+    /**
+     * Lê um número inteiro da consola, com validação.
+     *
+     * @param strPrompt Texto a exibir ao utilizador.
+     * @return Valor inteiro introduzido.
+     */
     public static int readIntFromConsole(String strPrompt) {
         do {
             try {
@@ -28,7 +41,12 @@ public class Utils {
             }
         } while (true);
     }
-
+    /**
+     * Lê um número decimal da consola, com validação.
+     *
+     * @param strPrompt Texto a exibir ao utilizador.
+     * @return Valor decimal introduzido.
+     */
     public static double readDoubleFromConsole(String strPrompt) {
         do {
             try {
@@ -40,7 +58,12 @@ public class Utils {
             }
         } while (true);
     }
-
+    /**
+     * Lê uma data da consola no formato dd-MM-yyyy, com validação.
+     *
+     * @param strPrompt Texto a exibir ao utilizador.
+     * @return Objeto {@link Data} com a data introduzida.
+     */
     public static Data readDateFromConsole(String strPrompt) {
         do {
             try {
@@ -59,7 +82,12 @@ public class Utils {
                 System.out.println("Data inválida: a data introduzida não existe no calendário.");            }
         } while (true);
     }
-
+    /**
+     * Pede confirmação ao utilizador com uma pergunta de sim/não.
+     *
+     * @param sMessage Mensagem a mostrar.
+     * @return true se o utilizador confirmar com 's' (sim), false se 'n' (não).
+     */
     static public boolean confirma(String sMessage) {
         String strConfirma;
         do {
@@ -69,33 +97,12 @@ public class Utils {
         return strConfirma.equalsIgnoreCase("s");
     }
 
-    static public void apresentaLista(List list, String sHeader) {
-        System.out.println(sHeader);
-
-        int index = 0;
-        for (Object o : list) {
-            index++;
-
-            System.out.println(index + ". " + o.toString());
-        }
-        System.out.println("");
-        System.out.println("0 - Cancelar");
-    }
-
-    static public Object selecionaObject(List list) {
-        String opcao;
-        int nOpcao;
-        do {
-            nOpcao = Utils.readIntFromConsole("Introduza opção: ");
-
-        } while (nOpcao < 0 || nOpcao > list.size());
-
-        if (nOpcao == 0) {
-            return null;
-        } else {
-            return list.get(nOpcao - 1);
-        }
-    }
+    /**
+     * Lê e valida o sexo do utilizador (M ou F).
+     *
+     * @param strPrompt Texto a exibir ao utilizador.
+     * @return "M" ou "F".
+     */
     public static String readSexoFromConsole(String strPrompt) {
         String sexo;
         do {
@@ -106,7 +113,12 @@ public class Utils {
         } while (!sexo.equalsIgnoreCase("M") && !sexo.equalsIgnoreCase("F"));
         return sexo;
     }
-
+    /**
+     * Lê e valida o nome de um paciente.
+     *
+     * @param strtPrompt Texto a exibir ao utilizador.
+     * @return Nome válido (apenas letras e espaços).
+     */
     public static String readNomePaFromConsole(String strtPrompt) { 
         String nome;
         do {
@@ -127,7 +139,12 @@ public class Utils {
         } while (!nome.matches("[a-zA-ZÀ-ÿ\\s]+"));
         return nome;
     }
-
+    /**
+     * Lê e valida a especialidade de um profissional.
+     *
+     * @param strtPrompt Texto a exibir ao utilizador.
+     * @return Especialidade válida (apenas letras e espaços).
+     */
     public static String readNomeEspFromConsole(String strtPrompt) { 
         String nome;
         do {

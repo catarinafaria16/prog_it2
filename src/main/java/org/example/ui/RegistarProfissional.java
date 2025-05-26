@@ -4,8 +4,21 @@ import org.example.model.Hospital;
 import org.example.model.ProfissionalSaude;
 import org.example.utils.Data;
 import org.example.utils.Utils;
-
+/**
+ * Classe responsável por registar novos profissionais de saúde no sistema.
+ */
 public class RegistarProfissional {
+    /**
+     * Método que solicita os dados de um novo profissional de saúde via consola
+     * e adiciona-o à lista de profissionais do hospital.
+     *
+     * Os dados solicitados incluem:
+     * - ID
+     * - Nome
+     * - Sexo
+     * - Data de nascimento
+     * - Especialidade
+     */
     protected static void registarProfissional() {
         System.out.println("Novo Profissional:");
         int id = Utils.readIntFromConsole("Introduza o ID do profissional: ");

@@ -1,14 +1,11 @@
 package org.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.exception.MedidaInvalidaException;
 import org.example.interfaces.IHospital;
 import org.example.utils.Data;
-import org.example.utils.Utils;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 /**
  * Representa um hospital que gere listas de pacientes e profissionais de saúde,
  * e permite o registo e manipulação de medições dos pacientes.
@@ -37,6 +34,14 @@ public class Hospital implements IHospital {
     public boolean adicionarPaciente(Paciente paciente) {
         if (!listaContemPaciente(paciente.getId())) {
             lstPacientes.add(paciente);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean adicionarProfissionalSaude(ProfissionalSaude profissional) {
+        if (!lstProfissionais.contains(profissional)) {
+            lstProfissionais.add(profissional);
             return true;
         }
         return false;

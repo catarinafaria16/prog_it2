@@ -2,8 +2,9 @@ package org.example.model;
 
 import org.example.utils.Data;
 import org.example.exception.MedidaInvalidaException;
+
 public class FrequenciaCardiaca extends Medida {
-    private double frequencia;
+    protected double frequencia;
 
     public FrequenciaCardiaca(Data dataRegisto, Paciente paciente, ProfissionalSaude profissionalSaude, double frequencia) throws MedidaInvalidaException {
         super(dataRegisto, paciente, profissionalSaude);
@@ -19,9 +20,8 @@ public class FrequenciaCardiaca extends Medida {
     }
 
     public static Medida fromDouble(double frequencia) throws MedidaInvalidaException {
-    return new FrequenciaCardiaca(frequencia);
-}
-
+        return new FrequenciaCardiaca(frequencia);
+    }
 
     public double getFrequencia() {
         return frequencia;

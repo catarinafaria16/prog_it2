@@ -1,8 +1,9 @@
 package org.example.model;
 
+import org.example.interfaces.IPessoa;
 import org.example.utils.Data;
 
-public abstract class Pessoa {
+public abstract class Pessoa implements IPessoa {
     protected int id;
     protected String nome;
     protected String sexo;
@@ -15,30 +16,37 @@ public abstract class Pessoa {
         this.dataNascimento = new Data(dataNascimento);
     }
 
-
+    @Override
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
 
+    @Override
     public String getNome() {
         return nome;
     }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    @Override
     public String getSexo() {
         return sexo;
     }
+
     public void setSexo(String Sexo) {
         this.sexo = sexo;
     }
-
+@Override
     public Data getDataNascimento() {
         return dataNascimento;
     }
+
     public void setDataNascimento(Data dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
@@ -46,10 +54,13 @@ public abstract class Pessoa {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("\n");
-        sb.append("ID:").append(id).append(" ");;
+        sb.append("ID:").append(id).append(" ");
+        ;
         sb.append(", NOME:").append(nome).append(" ");
-        sb.append(", SEXO: ").append(sexo).append(" ");;
-        sb.append(", DATA DE NASCIMENTO: ").append(dataNascimento).append(" ");;
+        sb.append(", SEXO: ").append(sexo).append(" ");
+        ;
+        sb.append(", DATA DE NASCIMENTO: ").append(dataNascimento).append(" ");
+        ;
         return sb.toString();
     }
 }

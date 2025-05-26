@@ -15,17 +15,6 @@ public class Paciente extends Pessoa {
         lstMedicao = new ArrayList<>();
     }
 
-    public void adicionarMedida(Medida medida) {
-        lstMedicao.add(medida);
-    }
-    public List<Medida> getLstMedicao() {
-        return lstMedicao; // Retorna a lista de medições do paciente
-    }
-
-    public Data getDataInternamento() {
-        return dataInternamento;
-    }
-
     public void setDataInternamento(Data dataInternamento) {
         this.dataInternamento = dataInternamento;
     }
@@ -38,7 +27,7 @@ public class Paciente extends Pessoa {
                 return (FrequenciaCardiaca)m;
             }
         }
-        return null; // não encontrado
+        return null;
     }
 
     // Método para obter a última medição de Temperatura
@@ -49,7 +38,7 @@ public class Paciente extends Pessoa {
                 return (Temperatura)m;
             }
         }
-        return null; // não encontrado
+        return null;
     }
 
     // Método para obter a última medição de SaturacaoOxigenio
@@ -60,7 +49,7 @@ public class Paciente extends Pessoa {
                 return (Saturacao)m;
             }
         }
-        return null; // não encontrado
+        return null;
     }
     public static String classificarPaciente() {
         FrequenciaCardiaca ultimaFc = getUltimaFrequenciaCardiaca();
@@ -128,7 +117,28 @@ public class Paciente extends Pessoa {
             return "Gravidade Alta";
         }
     }
+    public void adicionarMedida(Medida medida) {
+        this.lstMedicao.add(medida);
+    }
+    public List<Medida> getLstMedicao() {
+        return lstMedicao;
+    }
+    public int getId() {
+        return id;
+    }
+    public String getNome() {
+        return nome;
+    }
+    public String getSexo() {
+        return sexo;
+    }
+    public Data getDataNascimento() {
+        return dataNascimento;
+    }
 
+    public Data getDataInternamento() {
+        return dataInternamento;
+    }
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(super.toString());

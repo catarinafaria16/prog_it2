@@ -1,9 +1,10 @@
 package org.example.model;
 
 import org.example.exception.MedidaInvalidaException;
+import org.example.interfaces.IMedida;
 import org.example.utils.Data;
 
-public class Medida {
+public class Medida implements IMedida {
     private Data dataRegisto;
     private Paciente paciente;
     private ProfissionalSaude profissionalSaude;
@@ -18,12 +19,22 @@ public class Medida {
     public static Medida fromDouble(double medida) throws MedidaInvalidaException {
         return new Medida(medida);
     }
-    public Medida(double medida) {
-        this.valor = valor;
-    }
 
+    @Override
     public Data getDataRegisto() {
         return dataRegisto;
+    }
+    @Override
+    public Paciente getPaciente() {
+        return paciente;
+    }
+    @Override
+    public ProfissionalSaude getProfissionalSaude() {
+        return profissionalSaude;
+    }
+
+    public Medida(double medida) {
+        this.valor = valor;
     }
 
     public void setDataRegisto(Data dataRegisto) {

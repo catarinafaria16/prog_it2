@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.exception.MedidaInvalidaException;
+import org.example.interfaces.IHospital;
 import org.example.utils.Data;
 import org.example.utils.Utils;
 
@@ -9,7 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class Hospital {
+public class Hospital implements IHospital {
     private final String nome;
     private static List<Paciente> lstPacientes;
     private static List<ProfissionalSaude> lstProfissionais;
@@ -20,6 +21,7 @@ public class Hospital {
         lstProfissionais = new ArrayList<>();
     }
 
+    @Override
     public boolean adicionarPaciente(Paciente paciente) {
         if (!listaContemPaciente(paciente.getId())) {
             lstPacientes.add(paciente);
@@ -34,12 +36,14 @@ public class Hospital {
         paciente.adicionarMedida(medida);
         profissionalSaude.adicionarMedida(medida);
     }
+
     public static void adicionarTemperatura(Data dataRegisto, double temperatura, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
         Temperatura medida = new Temperatura(dataRegisto, paciente, profissionalSaude, temperatura);
         paciente.adicionarMedida(medida);
     }
+
     public static void adicionarSaturacao(Data dataRegisto, double saturacao, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
-        Saturacao medida = new Saturacao(dataRegisto,paciente, profissionalSaude, saturacao);
+        Saturacao medida = new Saturacao(dataRegisto, paciente, profissionalSaude, saturacao);
         paciente.adicionarMedida(medida);
     }
 
@@ -75,6 +79,8 @@ public class Hospital {
     public static List<Paciente> getLstPacientes() {
         return lstPacientes;
     }
+
+
     public static List<ProfissionalSaude> getLstProfissionais() {
         return lstProfissionais;
     }

@@ -3,14 +3,28 @@ package org.example.model;
 import java.util.List;
 
 import org.example.exception.MedidaInvalidaException ;
+/**
+ * Classe responsável pelo cálculo de estatísticas dos sinais vitais dos pacientes,
+ * incluindo valores mínimos, máximos, médias e desvios padrão.
+ */
 public class MedidasSumario {
     private List<Medida> lstMedicao;
     private List<Paciente> lstPaciente ;
-
+    /**
+     * Construtor que recebe uma lista de medições a ser analisada.
+     *
+     * @param lstMedicao Lista de medições.
+     */
     public MedidasSumario(List<Medida> lstMedicao) {
         this.lstMedicao = lstMedicao;
     }
-
+    /**
+     * Calcula e retorna um resumo das medidas (mínimos, máximos, médias e desvios padrão)
+     * para todos os pacientes registados.
+     *
+     * @return String com os resultados organizados por paciente.
+     * @throws MedidaInvalidaException Se não existirem medições válidas.
+     */
     public static String calcularMedidasSumarioParaTodosPacientes() throws MedidaInvalidaException {
         StringBuilder resultado = new StringBuilder();
         for (Paciente paciente : Hospital.getLstPacientes()) {
@@ -28,7 +42,13 @@ public class MedidasSumario {
         return resultado.toString();
     }
 
-
+    /**
+     * Calcula os valores mínimos de cada tipo de medição (frequência, temperatura e saturação).
+     *
+     * @param paciente Paciente cujas medições serão analisadas.
+     * @return String com os valores mínimos encontrados.
+     * @throws MedidaInvalidaException Se não existirem medições.
+     */
     public static String calcularMinimo(Paciente paciente) throws MedidaInvalidaException {
         double minFc = Double.MAX_VALUE;
         double minTemp = Double.MAX_VALUE;
@@ -62,7 +82,13 @@ public class MedidasSumario {
         }
         return "Valor mínimo de frequência cardíaca: " + minFc + "\nValor mínimo de temperatura: " + minTemp + "\nValor mínimo de saturação de oxigénio: " + minSo;
     }
-
+    /**
+     * Calcula os valores máximos de cada tipo de medição.
+     *
+     * @param paciente Paciente cujas medições serão analisadas.
+     * @return String com os valores máximos encontrados.
+     * @throws MedidaInvalidaException Se não existirem medições.
+     */
     public static String calcularMaximo(Paciente paciente) throws MedidaInvalidaException {
         double maxFc = Double.MIN_VALUE;
         double maxTemp = Double.MIN_VALUE;
@@ -95,7 +121,13 @@ public class MedidasSumario {
         }
         return "\nValor máximo de frequência cardíaca: " + maxFc + "\nValor máximo de temperatura: " + maxTemp + "\nValor máximo de saturação de oxigénio: " + maxSo;
     }
-
+    /**
+     * Calcula a média e o desvio padrão de cada tipo de sinal vital.
+     *
+     * @param paciente Paciente cujas medições serão analisadas.
+     * @return String com os valores calculados.
+     * @throws MedidaInvalidaException Se não existirem medições válidas.
+     */
     public static String calcularMediaEDesvioPadrao(Paciente paciente) throws MedidaInvalidaException {
         double somaFc = 0;
         double somaQuadradosFc = 0;

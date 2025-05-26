@@ -7,18 +7,32 @@ import org.example.model.Paciente;
 import org.example.model.ProfissionalSaude;
 import org.example.utils.Data;
 import org.example.utils.Utils;
-
+/**
+ * Classe responsável pelo registo de pacientes e introdução de medições no sistema.
+ */
 public class RegistarPaciente  {
     private static Hospital hospital;
-
+    /**
+     * Construtor que recebe a instância do hospital atual.
+     *
+     * @param hospital Instância do hospital onde o paciente será registado.
+     */
     public RegistarPaciente(Hospital hospital) {
         this.hospital = hospital;
     }
-
+    /**
+     * Devolve a instância atual do hospital.
+     *
+     * @return Hospital atual.
+     */
 public static Hospital getHospital() {
         return hospital;
 }
-    public static void registarPaciente() {
+    /**
+     * Método principal para registar um novo paciente.
+     * Solicita os dados ao utilizador e, após confirmação, tenta guardar o paciente.
+     */
+public static void registarPaciente() {
         System.out.println("Novo Paciente:");
         Paciente novoPaciente = introduzDadosPaciente();
 
@@ -31,7 +45,11 @@ public static Hospital getHospital() {
         }
     }
 
-
+    /**
+     * Solicita os dados do paciente via consola e cria uma instância de {@link Paciente}.
+     *
+     * @return Paciente criado com os dados introduzidos.
+     */
     private static Paciente introduzDadosPaciente() {
         int id = Utils.readIntFromConsole("Introduza o ID do paciente: ");
         String nome = Utils.readNomePaFromConsole("Introduza o nome do paciente: ");
@@ -40,7 +58,13 @@ public static Hospital getHospital() {
         Data dataInternamento = Utils.readDateFromConsole("Introduza a data de internamento (dd-MM-yyyy): ");
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
     }
-
+    /**
+     * Permite introduzir medições para um paciente já registado.
+     * Solicita os dados necessários via consola, associa as medições ao paciente e profissional,
+     * e imprime as medições introduzidas.
+     *
+     * @throws MedidaInvalidaException Caso algum valor de medição seja inválido.
+     */
     static void introduzMedicoes() throws MedidaInvalidaException {
         int idProfissional = Utils.readIntFromConsole("Introduza o ID do profissional: ");
         int id = Utils.readIntFromConsole("Introduza o ID do paciente: ");

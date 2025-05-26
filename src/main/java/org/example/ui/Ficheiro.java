@@ -18,36 +18,38 @@ import java.util.Scanner;
 
 public class Ficheiro {
     public static List<Paciente> lerFicheiro(String caminhoFicheiro) {
+        Hospital hospital;
         List<Paciente> pacientes = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoFicheiro))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                String[] dados = linha.split(","); // Supondo que os dados estão separados por vírgula
-                if (dados.length == 11) { // Verifica se a linha contém todos os dados necessários
+                String[] dados = linha.split(",");// Supondo que os dados estão separados por vírgula
+                if (dados.length == 14) {// Verifica se a linha contém todos os dados necessários
                     int id = Integer.parseInt(dados[0].trim());
                     String nome = dados[1].trim();
                     String sexo = dados[2].trim();
                     Data dataNascimento = Data.fromString(dados[3].trim());
-                    Data dataInternamento = Data.fromString(dados[4].trim());
-
+                    Data dataRegisto= Data.fromString(dados[4].trim());
+                    Data dataInternamento = Data.fromString(dados[5].trim());
                     // Lê o ID, nome e especialidade do profissional de saúde
-                    int idProfissional = Integer.parseInt(dados[5].trim());
-                    String nomeProfissional = dados[6].trim();
-                    String especialidadeProfissional = dados[7].trim();
-
+                    int idProfissional = Integer.parseInt(dados[6].trim());
+                    String nomeProfissional = dados[7].trim();
+                    String sexoProfissional = dados[8].trim();
+                    Data dataNascimentoProfissional = Data.fromString(dados[9].trim());
+                    String especialidadeProfissional = dados[10].trim();
                     // Cria o paciente com os dados lidos
                     Paciente paciente = new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
-
                     // Cria o profissional de saúde com os dados lidos
-                    ProfissionalSaude profissional = new ProfissionalSaude(idProfissional, nomeProfissional, null, null, especialidadeProfissional);
-
+                    ProfissionalSaude profissional = new ProfissionalSaude(idProfissional, nomeProfissional, sexoProfissional, dataNascimentoProfissional, especialidadeProfissional);
+                    Hospital.getLstProfissionais().add(profissional);
+                    RegistarPaciente.getHospital().adicionarPaciente(paciente);
                     // Adiciona as medições, se necessário
-                    paciente.adicionarMedida(new FrequenciaCardiaca(dataNascimento, paciente, profissional, Double.parseDouble(dados[8].trim())));
-                    paciente.adicionarMedida(new Temperatura(dataNascimento, paciente, profissional, Double.parseDouble(dados[9].trim())));
-                    paciente.adicionarMedida(new Saturacao(dataNascimento, paciente, profissional, Double.parseDouble(dados[10].trim())));
-
+                    Hospital.adicionarFrequenciaCardiaca(dataRegisto, Double.parseDouble(dados[11].trim()), paciente,profissional);
+                    Hospital.adicionarTemperatura(dataRegisto, Double.parseDouble(dados[12].trim()), paciente,profissional);
+                    Hospital.adicionarSaturacao(dataRegisto, Double.parseDouble(dados[13].trim()), paciente,profissional);
                     pacientes.add(paciente);
+
                 }
             }
         } catch (IOException e) {

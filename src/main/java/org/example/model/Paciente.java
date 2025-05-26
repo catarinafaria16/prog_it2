@@ -67,6 +67,16 @@ public class Paciente extends Pessoa {
             return "Crítico";
         }
     }
+    public static String stringClassificacao (){
+        StringBuilder classificacao= new StringBuilder();
+     for (Paciente p :Hospital.getLstPacientes()){
+         classificarPaciente();
+         classificacao.append("\nClassificação do Paciente " + p.getId());
+         classificacao.append(": ");
+         classificacao.append(classificarPaciente());
+     }
+     return (classificacao).toString();
+    }
     // Método que calcula o score de gravidade baseado nas últimas medições
     public static double calcularScoreGravidadeUltimasMedicoes() {
         int fcScore=0;

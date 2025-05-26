@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ManipulacaoDados {
 
-    public static List listarPacientesOrdenados() {
+    public static  List<Paciente> listarPacientesOrdenados() {
         List<Paciente> lstPacientes = Hospital.getLstPacientes();
         if (lstPacientes.isEmpty()) {
             System.out.println("Não há pacientes registados.");

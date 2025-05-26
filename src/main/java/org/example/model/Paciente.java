@@ -67,12 +67,22 @@ public class Paciente extends Pessoa {
             return "Crítico";
         }
     }
+    public static String stringClassificacao (){
+        StringBuilder classificacao= new StringBuilder();
+     for (Paciente p :Hospital.getLstPacientes()){
+         classificarPaciente();
+         classificacao.append("\nClassificação do Paciente " + p.getId());
+         classificacao.append(": ");
+         classificacao.append(classificarPaciente());
+     }
+     return (classificacao).toString();
+    }
     // Método que calcula o score de gravidade baseado nas últimas medições
     public static double calcularScoreGravidadeUltimasMedicoes() {
-        int fcScore=0;
-        int tempScore=0;
-        int satScore=0;
-        for (Paciente p: Hospital.getLstPacientes()) {
+        int fcScore = 0;
+        int tempScore = 0;
+        int satScore = 0;
+        for (Paciente p : Hospital.getLstPacientes()) {
             FrequenciaCardiaca ultFc = getUltimaFrequenciaCardiaca();
             Temperatura ultTemp = getUltimaTemperatura();
             Saturacao ultSo = getUltimaSaturacaoOxigenio();
@@ -85,8 +95,9 @@ public class Paciente extends Pessoa {
             tempScore = pontuarTemperatura(ultTemp.getTemperatura());
             satScore = pontuarSaturacao(ultSo.getSaturacao());
         }
-        return fcScore * 0.3 + tempScore * 0.4 + satScore * 0.3;
-    }
+            return fcScore * 0.3 + tempScore * 0.4 + satScore * 0.3;
+        }
+
 
     // Métodos de pontuação - mesmas regras já usadas antes
     private static int pontuarFrequenciaCardiaca(double fc) {
@@ -116,6 +127,16 @@ public class Paciente extends Pessoa {
         } else {
             return "Gravidade Alta";
         }
+    }
+    public static String stringScoreGravidade() {
+        StringBuilder score = new StringBuilder();
+        for (Paciente p : Hospital.getLstPacientes()) {
+            interpretarScoreGravidade();
+            score.append("\nScore de Gravidade do Paciente " + p.getId());
+            score.append(": ");
+            score.append(interpretarScoreGravidade());
+        }
+        return (score).toString();
     }
     public void adicionarMedida(Medida medida) {
         this.lstMedicao.add(medida);

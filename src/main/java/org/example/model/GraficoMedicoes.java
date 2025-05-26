@@ -4,6 +4,7 @@ public class GraficoMedicoes {
     public static void imprimirGrafico() {
         try {
             for (Paciente paciente : Hospital.getLstPacientes()) {
+                System.out.println("Gráfico do Paciente" +paciente.getId());
                 FrequenciaCardiaca ultimaFc = paciente.getUltimaFrequenciaCardiaca();
                 if (ultimaFc != null) {
                     System.out.print("Frequência cardíaca (bpm): ");

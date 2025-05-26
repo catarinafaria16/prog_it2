@@ -4,6 +4,7 @@ import org.example.exception.MedidaInvalidaException;
 import org.example.model.*;
 import org.example.utils.Utils;
 
+import java.sql.SQLOutput;
 import java.util.List;
 
 public class MenuUI {
@@ -65,14 +66,13 @@ public class MenuUI {
                     ManipulacaoDados.alterarSinaisVitais(percentualAlteracao);
                     break;
                 case 9:
-                    Paciente.classificarPaciente(); // falta dar sout
+                    System.out.println(Paciente.stringClassificacao());
                     break;
                 case 10:
                     System.out.println("\nPercentagem de pacientes críticos: " + ManipulacaoDados.calcularPercentagemPacientesCriticos());
                     break;
                 case 11:
-                    Paciente.interpretarScoreGravidade();
-                    System.out.println(Paciente.interpretarScoreGravidade());
+                    System.out.println(Paciente.stringScoreGravidade());
                     break;
                 case 12:
                     GraficoMedicoes.imprimirGrafico();

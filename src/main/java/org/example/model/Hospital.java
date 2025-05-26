@@ -11,12 +11,12 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Hospital implements IHospital {
-    private final String nome;
+    private final String hospital;
     private static List<Paciente> lstPacientes;
     private static List<ProfissionalSaude> lstProfissionais;
 
-    public Hospital(String nome) {
-        this.nome = nome;
+    public Hospital(String hospital) {
+        this.hospital = hospital;
         lstPacientes = new ArrayList<>();
         lstProfissionais = new ArrayList<>();
     }
@@ -58,7 +58,7 @@ public class Hospital implements IHospital {
 
     public static void visualizarPacientes() {
         if (lstPacientes.isEmpty()) {
-            System.out.println("Não há pacientes registrados.");
+            System.out.println("Não há pacientes registados.");
         } else {
             System.out.println("Lista de Pacientes:");
             for (Paciente paciente : lstPacientes) {
@@ -96,7 +96,7 @@ public class Hospital implements IHospital {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Hospital: ").append(nome);
+        final StringBuilder sb = new StringBuilder("Hospital: ").append(hospital);
         sb.append("\nLista de pacientes:").append(lstPacientes);
         sb.append("\nLista de Profissionais de Saúde: ").append(lstProfissionais);
         return sb.toString();

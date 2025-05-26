@@ -15,7 +15,9 @@ public class RegistarPaciente  {
         this.hospital = hospital;
     }
 
-
+public static Hospital getHospital() {
+        return hospital;
+}
     public static void registarPaciente() {
         System.out.println("Novo Paciente:");
         Paciente novoPaciente = introduzDadosPaciente();

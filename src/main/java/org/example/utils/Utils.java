@@ -96,5 +96,14 @@ public class Utils {
             return list.get(nOpcao - 1);
         }
     }
-
+    public static String readSexoFromConsole(String strPrompt) {
+        String sexo;
+        do {
+            sexo = readLineFromConsole(strPrompt);
+            if (!sexo.equalsIgnoreCase("M") && !sexo.equalsIgnoreCase("F")) {
+                System.out.println("Sexo inválido. Por favor, digite M para masculino ou F para feminino.");
+            }
+        } while (!sexo.equalsIgnoreCase("M") && !sexo.equalsIgnoreCase("F"));
+        return sexo;
+    }
 }

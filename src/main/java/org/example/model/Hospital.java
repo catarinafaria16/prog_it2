@@ -2,6 +2,7 @@ package org.example.model;
 
 import org.example.exception.MedidaInvalidaException;
 import org.example.utils.Data;
+import org.example.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,14 +10,14 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Hospital {
-    private String nome;
+    private final String nome;
     private static List<Paciente> lstPacientes;
     private static List<ProfissionalSaude> lstProfissionais;
 
     public Hospital(String nome) {
         this.nome = nome;
-        this.lstPacientes = new ArrayList<>();
-        this.lstProfissionais = new ArrayList<>();
+        lstPacientes = new ArrayList<>();
+        lstProfissionais = new ArrayList<>();
     }
 
     public boolean adicionarPaciente(Paciente paciente) {
@@ -27,9 +28,11 @@ public class Hospital {
         return false;
     }
 
+
     public static void adicionarFrequenciaCardiaca(Data dataRegisto, double frequencia, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
         FrequenciaCardiaca medida = new FrequenciaCardiaca(dataRegisto, paciente, profissionalSaude, frequencia);
         paciente.adicionarMedida(medida);
+        profissionalSaude.adicionarMedida(medida);
     }
     public static void adicionarTemperatura(Data dataRegisto, double temperatura, Paciente paciente, ProfissionalSaude profissionalSaude) throws MedidaInvalidaException {
         Temperatura medida = new Temperatura(dataRegisto, paciente, profissionalSaude, temperatura);
@@ -71,6 +74,9 @@ public class Hospital {
 
     public static List<Paciente> getLstPacientes() {
         return lstPacientes;
+    }
+    public static List<ProfissionalSaude> getLstProfissionais() {
+        return lstProfissionais;
     }
 
     public boolean listaContemPaciente(int id) {

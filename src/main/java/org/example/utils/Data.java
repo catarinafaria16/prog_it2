@@ -60,7 +60,8 @@ public class Data {
     }
 
     public String toString() {
-        return this.determinarDiaDaSemana() + ", " + String.format("%02d", this.dia) + " de " + nomeMes[this.mes] + " de " + this.ano;    }
+        return this.determinarDiaDaSemana() + ", " + this.dia + " de " + nomeMes[mes] + " de " + ano;
+    }
 
     public String toAnoMesDiaString() {
         return String.format("%04d/%02d/%02d", ano, mes, dia);

@@ -11,16 +11,17 @@ import org.example.model.Temperatura;
 import org.example.utils.Data;
 import org.example.utils.Utils;
 
-public class RegistarPaciente {
+public class RegistarPaciente  {
     private static Hospital hospital;
 
     public RegistarPaciente(Hospital hospital) {
-        this.hospital = hospital; // Atribuindo a instância de Hospital
+        this.hospital = hospital;
     }
+
 
     public static void registarPaciente() {
         System.out.println("Novo Paciente:");
-        Paciente novoPaciente = introduzDados();
+        Paciente novoPaciente = introduzDadosPaciente();
 
         if (Utils.confirma("Confirma os dados? (S/N)")) {
             if (hospital.adicionarPaciente(novoPaciente)) {
@@ -31,22 +32,11 @@ public class RegistarPaciente {
         }
     }
 
-    private static Paciente introduzDados() {
+
+    private static Paciente introduzDadosPaciente() {
         int id = Utils.readIntFromConsole("Introduza o ID do paciente: ");
-        String nome;
-        do {
-            nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
-            if (!nome.matches("[a-zA-ZÀ-ÿ\\s]+")) {
-                System.out.println("Nome inválido. Use apenas letras e espaços.");
-            }
-        } while (!nome.matches("[a-zA-ZÀ-ÿ\\s]+"));
-        String sexo;
-        do {
-            sexo = Utils.readLineFromConsole("Introduza o sexo do paciente (M/F): ").toUpperCase();
-            if (!sexo.equals("M") && !sexo.equals("F")) {
-                System.out.println("Sexo inválido. Por favor introduza M ou F.");
-            }
-        } while (!sexo.equals("M") && !sexo.equals("F"));
+        String nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
+        String sexo = Utils.readSexoFromConsole("Introduza o sexo do paciente (M/F): ");
         Data dataNascimento = Utils.readDateFromConsole("Introduza a data de nascimento (dd-MM-yyyy): ");
         Data dataInternamento = Utils.readDateFromConsole("Introduza a data de internamento (dd-MM-yyyy): ");
         return new Paciente(id, nome, sexo, dataNascimento, dataInternamento);
@@ -60,9 +50,11 @@ public class RegistarPaciente {
         double temperatura = Utils.readDoubleFromConsole("Introduza a temperatura: ");
         double saturacao = Utils.readDoubleFromConsole("Introduza a saturação: ");
         ProfissionalSaude profissional = hospital.procurarProfissionalID(idProfissional);
-        Medida medidaFrequencia = FrequenciaCardiaca.fromDouble(frequencia);
-        Medida medidaTemperatura = Temperatura.fromDouble(temperatura);
-        Medida medidaSaturacao = Saturacao.fromDouble(saturacao);
+        if (profissional == null) {
+            System.out.println("Profissional não encontrado.");
+            return;
+        }
+        System.out.println(profissional);
         Paciente paciente = hospital.procurarPacienteID(id);
         Hospital.adicionarFrequenciaCardiaca(dataRegisto, frequencia, paciente, profissional);
         Hospital.adicionarTemperatura(dataRegisto, temperatura, paciente, profissional);

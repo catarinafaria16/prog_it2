@@ -15,7 +15,7 @@ public class GraficoMedicoes {
                 Temperatura ultimaTemp = paciente.getUltimaTemperatura();
                 if (ultimaTemp != null) {
                     System.out.print("Temperatura corporal (ºC): ");
-                    imprimirBarra(ultimaTemp.getTemperatura(), 10);
+                    imprimirBarra(ultimaTemp.getTemperatura(), 2);
                 } else {
                     System.out.println("Nenhuma medição de temperatura encontrada para o paciente " + paciente.getNome());
                 }
@@ -23,7 +23,7 @@ public class GraficoMedicoes {
                 Saturacao ultimaSat = paciente.getUltimaSaturacaoOxigenio();
                 if (ultimaSat != null) {
                     System.out.print("Saturação de oxigénio (%): ");
-                    imprimirBarra(ultimaSat.getSaturacao(), 10);
+                    imprimirBarra(ultimaSat.getSaturacao(), 5);
                 } else {
                     System.out.println("Nenhuma medição de saturação encontrada para o paciente " + paciente.getNome());
                 }

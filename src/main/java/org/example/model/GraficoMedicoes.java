@@ -1,6 +1,20 @@
 package org.example.model;
-
+/**
+ * Classe responsável por imprimir gráficos simplificados (em formato de barras)
+ * com os últimos valores de sinais vitais (frequência cardíaca, temperatura corporal e saturação de oxigénio)
+ * dos pacientes registados no sistema.
+ */
 public class GraficoMedicoes {
+    /**
+     * Imprime no terminal um gráfico de barras para cada paciente registado no hospital,
+     * baseado nos valores mais recentes de sinais vitais.
+     * Os sinais representados são:
+     * - Frequência cardíaca (bpm)
+     * - Temperatura corporal (ºC)
+     * - Saturação de oxigénio (%)
+     *
+     * A barra é representada com caracteres '*' proporcionalmente ao valor medido.
+     */
     public static void imprimirGrafico() {
         try {
             for (Paciente paciente : Hospital.getLstPacientes()) {
@@ -35,7 +49,12 @@ public class GraficoMedicoes {
             System.out.println("Erro inesperado ao imprimir barras: " + e.getMessage());
         }
     }
-
+    /**
+     * Imprime uma barra de asteriscos proporcional ao valor recebido.
+     *
+     * @param valor  O valor a representar graficamente.
+     * @param escala A escala usada para converter o valor em número de asteriscos.
+     */
     private static void imprimirBarra(double valor, double escala) {
         try {
             int estrelas = (int) Math.round(valor / escala);

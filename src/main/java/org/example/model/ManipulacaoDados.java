@@ -9,9 +9,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
+/**
+ * Classe utilitária responsável por manipular dados relacionados a pacientes e suas medições.
+ * Inclui funcionalidades como ordenação, alteração de sinais vitais, cálculo de estatísticas
+ * e gravação em ficheiros.
+ */
 public class ManipulacaoDados {
-
+    /**
+     * Lista os pacientes ordenados alfabeticamente pelo nome. Em caso de empate,
+     * a ordenação é feita pela data de nascimento.
+     *
+     * @return Lista ordenada de pacientes.
+     */
     public static  List<Paciente> listarPacientesOrdenados() {
         List<Paciente> lstPacientes = Hospital.getLstPacientes();
         if (lstPacientes.isEmpty()) {
@@ -33,7 +42,13 @@ public class ManipulacaoDados {
         }
         return lstPacientes;
     }
-
+    /**
+     * Aplica uma alteração percentual a todos os sinais vitais registados de todos os pacientes.
+     * Pode ser usado, por exemplo, para simular variações em massa nos dados.
+     *
+     * @param percentualAlteracao Percentagem a alterar (positiva ou negativa).
+     * @throws MedidaInvalidaException Se os novos valores violarem regras de validação.
+     */
     public static void alterarSinaisVitais(double percentualAlteracao) throws MedidaInvalidaException {
         List <Paciente> lstPacientes = Hospital.getLstPacientes();
         for (Paciente paciente : lstPacientes) {
@@ -57,6 +72,11 @@ public class ManipulacaoDados {
             }
         }
     }
+    /**
+     * Calcula a percentagem de pacientes cuja classificação clínica mais recente é "Crítico".
+     *
+     * @return Valor percentual (0 a 100).
+     */
     public static double calcularPercentagemPacientesCriticos() {
         List<Paciente> lstPacientes = Hospital.getLstPacientes();
         if (lstPacientes.isEmpty()) {
@@ -72,6 +92,12 @@ public class ManipulacaoDados {
         }
         return (double) pacientesCriticos / totalPacientes * 100;
     }
+    /**
+     * Grava uma lista de medições num ficheiro de texto especificado.
+     *
+     * @param lstMedidas     Lista de medições a serem gravadas.
+     * @param caminhoArquivo Caminho (completo) do ficheiro onde os dados serão salvos.
+     */
     public static void gravarDadosEmArquivo(List<Medida> lstMedidas, String caminhoArquivo) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
             for (Medida medida : lstMedidas) {

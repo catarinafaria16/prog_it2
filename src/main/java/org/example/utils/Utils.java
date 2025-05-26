@@ -41,18 +41,22 @@ public class Utils {
         } while (true);
     }
 
-    static public Data readDateFromConsole(String strPrompt) {
+    public static Data readDateFromConsole(String strPrompt) {
         do {
             try {
                 String strData = readLineFromConsole(strPrompt);
-                // dd-MM-yyyy
                 String[] arr = strData.split("-");
                 int dia = Integer.parseInt(arr[0]);
                 int mes = Integer.parseInt(arr[1]);
                 int ano = Integer.parseInt(arr[2]);
-                return new Data(dia, mes, ano);            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
-                System.out.println("--> " + ex.toString());
-            }
+
+                // Valida se a data é válida no calendário
+                java.time.LocalDate.of(ano, mes, dia); 
+                return new Data(dia, mes, ano);
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                System.out.println("Formato inválido. Use o formato dd-MM-yyyy.");
+            } catch (java.time.DateTimeException e) {
+                System.out.println("Data inválida: a data introduzida não existe no calendário.");            }
         } while (true);
     }
 

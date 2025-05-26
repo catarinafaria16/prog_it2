@@ -32,7 +32,7 @@ public class RegistarPaciente  {
 
     private static Paciente introduzDadosPaciente() {
         int id = Utils.readIntFromConsole("Introduza o ID do paciente: ");
-        String nome = Utils.readNomeFromConsole("Introduza o nome do paciente: ");
+        String nome = Utils.readNomePaFromConsole("Introduza o nome do paciente: ");
         String sexo = Utils.readSexoFromConsole("Introduza o sexo do paciente (M/F): ");
         Data dataNascimento = Utils.readDateFromConsole("Introduza a data de nascimento (dd-MM-yyyy): ");
         Data dataInternamento = Utils.readDateFromConsole("Introduza a data de internamento (dd-MM-yyyy): ");

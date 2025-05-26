@@ -107,12 +107,33 @@ public class Utils {
         return sexo;
     }
 
-    public static String readNomeFromConsole(String strtPrompt) { 
+    public static String readNomePaFromConsole(String strtPrompt) { 
         String nome;
         do {
             nome = Utils.readLineFromConsole("Introduza o nome do paciente: ");
             if (!nome.matches("[a-zA-ZÀ-ÿ\\s]+")) {
                 System.out.println("Nome inválido. Use apenas letras e espaços.");
+            }
+        } while (!nome.matches("[a-zA-ZÀ-ÿ\\s]+"));
+        return nome;
+    }
+    public static String readNomeProFromConsole(String strtPrompt) { 
+        String nome;
+        do {
+            nome = Utils.readLineFromConsole("Introduza o nome do profissional: ");
+            if (!nome.matches("[a-zA-ZÀ-ÿ\\s]+")) {
+                System.out.println("Nome inválido. Use apenas letras e espaços.");
+            }
+        } while (!nome.matches("[a-zA-ZÀ-ÿ\\s]+"));
+        return nome;
+    }
+
+    public static String readNomeEspFromConsole(String strtPrompt) { 
+        String nome;
+        do {
+            nome = Utils.readLineFromConsole("Introduza o especialidade do profissional: ");
+            if (!nome.matches("[a-zA-ZÀ-ÿ\\s]+")) {
+                System.out.println("Especialidade inválida. Use apenas letras e espaços.");
             }
         } while (!nome.matches("[a-zA-ZÀ-ÿ\\s]+"));
         return nome;
